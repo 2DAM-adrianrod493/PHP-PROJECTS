@@ -15,6 +15,7 @@
             text-align: center;
         }
     </style>
+    
     </head>
     <body>
         <h1 style="text-align:center;">Ej2</h1>
