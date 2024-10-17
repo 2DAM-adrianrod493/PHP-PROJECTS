@@ -1,5 +1,5 @@
 <?php
-    $clase = "sobremi"
+    $pagina = "sobremi"
 ?>
 
 <?php require 'includes/header.php';?>

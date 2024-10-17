@@ -1,0 +1,55 @@
+/* Estilos Encabezado */
+header {
+    background-color: #d4edda;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Estilo del título */
+.titulo {
+    color: #28a745;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+/* Estilos para la barra de navegación */
+.nav-link {
+    color: #343a40;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    transition: color 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+}
+
+/* Iconos antes del texto de enlace */
+.nav-link::before {
+    margin-right: 8px;
+}
+
+/* Icons Enlaces */
+.nav-link[href*="index.php"]::before {
+    content: "\1F3E0";
+}
+
+.nav-link[href*="proyectos.php"]::before {
+    content: "\1F4BB";
+}
+
+.nav-link[href*="sobremi.php"]::before {
+    content: "\1F464";
+}
+
+.nav-link[href*="contacto.php"]::before {
+    content: "\2709";
+}
+
+/* Enlaces Activos */
+.nav-link.active {
+    color: #28a745;
+}
+
+/* Pasar ratón sobre los enlaces */
+.nav-link:hover {
+    color: #81c784; /* Verde más claro al pasar el ratón */
+}

@@ -1,5 +1,5 @@
 <?php
-    $clase = "contacto"
+    $pagina = "contacto"
 ?>
 
 <?php require 'includes/header.php';?>
