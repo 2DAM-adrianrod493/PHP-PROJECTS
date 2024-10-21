@@ -51,7 +51,6 @@
                             <div class='card-body d-flex flex-column'>
                                 <h5 class='card-title'>$nombre</h5>
                                 <p class='card-text'>$descripcion</p>
-                                <!-- El botón se coloca abajo con mt-auto -->
                                 <a href='#' class='btn btn-primary mt-auto'>$veces_por_semana veces por semana</a>
                             </div>
                         </div>

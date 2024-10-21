@@ -14,12 +14,11 @@
     <h2 class="d-flex align-items-center justify-content-center">Proyectos</h2>
 
     <ul class="list-group">
-        <li class="list-group-item">An item</li>
-    <?php
-        foreach($proyectos as $p ) {
-            echo "<li class='list-group-item'>$p</li>";
-        }
-    ?>
+        <?php
+            foreach($proyectos as $p ) {
+                echo "<li class='list-group-item'>$p</li>";
+            }
+        ?>
     </ul>
 
 </div>
