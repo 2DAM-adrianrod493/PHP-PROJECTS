@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-<?php
-    $pagina = "sobremi"
-?>
-
-<?php require 'includes/header.php';?>
-
-<h2>Sobre Mí</h2>
-
-</body>
-
-</html>
-=======
 <?php
     $pagina = "sobremi";
 
@@ -75,4 +62,3 @@
 
 </body>
 </html>
->>>>>>> cf9a6c3de2b73270e0d2702585e71abd75daefa5

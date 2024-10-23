@@ -6,34 +6,28 @@
 
 $persona = array(
 
-    "nombre" => "maria",
-    "apellido" => "millan",
-    "correo" => "aaaa@gmail.com"
+    "nombre" => "Adrián",
+    "apellido" => "Rodríguez",
+    "correo" => "adrianrodry55@gmail.com"
 
 );
-
-foreach ($persona as $clave => $p) {
-
-    echo $clave."-".$valor."<br>";
-
-};
 
 $agenda = array(
 
     array(
-        "nombre" => "maria",
-        "apellido" => "millan",
-        "correo" => "aaaa@gmail.com"
+        "nombre" => "Alejandro",
+        "apellido" => "Delgado",
+        "correo" => "aledel@gmail.com"
     ),
     array(
-        "nombre" => "sara",
-        "apellido" => "perez",
-        "correo" => "aaaa@gmail.com"
+        "nombre" => "Dragos",
+        "apellido" => "Telita",
+        "correo" => "dragos@gmail.com"
     ),
     array(
-        "nombre" => "carlos",
-        "apellido" => "gonzalez",
-        "correo" => "aaaa@gmail.com"
+        "nombre" => "Paula",
+        "apellido" => "Cordero",
+        "correo" => "paulcor@gmail.com"
     ),
 
 );
