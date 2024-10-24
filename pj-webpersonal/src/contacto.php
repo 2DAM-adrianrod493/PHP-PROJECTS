@@ -4,7 +4,7 @@
 
 <?php require 'includes/header.php';?>
 
-<h2>Contacto</h2>
+<h1 class="text-center mb-4">Contacto</h1>
 
 </body>
 
