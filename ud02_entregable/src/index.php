@@ -59,13 +59,35 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Lista de Alumnos</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="../css/cabecera.css">
+        <link rel="stylesheet" href="./css/telita.css">
     </head>
     <body>
         <?php require 'includes/header.php'; ?>
         
         <div class="container-fluid mt-5">
             <h1 class="text-center mb-4">Alumnado</h1>
+
+        <!-- Imágenes -->
+        <div class="container">
+            <div class="row justify-content-center">
+                <?php
+                    $directorio = "./img/";
+                    $ficheros = scandir($directorio);
+
+                    foreach ($ficheros as $file) {
+                        $extension = pathinfo($file, PATHINFO_EXTENSION);
+                        if ($extension == "jpg" || $extension == "jpeg" || $extension == "png") {
+                            $ruta = $directorio . $file;
+                            echo "<div class='col-4 text-center'>
+                                <img class='img-fluid' src='$ruta' alt='$file'> 
+                            </div>";
+                        }
+                    }
+                ?>
+            </div>
+        </div>
+
+            
             <!-- Cuadro de Búsqueda -->
             <form method="POST" class="row mb-3">
                 <div class="col-12 col-md-10">
