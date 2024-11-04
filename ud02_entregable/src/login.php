@@ -28,8 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="../css/cabecera.css">
 </head>
 <body>
-    <?php require 'includes/header.php'; ?>
-    
     <div class="container mt-5">
         <h1 class="text-center mb-4">Inicia Sesión</h1>
         <?php if (isset($error)): ?>
@@ -49,3 +47,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 </body>
 </html>
+

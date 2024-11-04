@@ -59,9 +59,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Lista de Alumnos</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="./css/telita.css">
+        <link rel="stylesheet" href="../css/cabecera.css">
+
     </head>
     <body>
+        
+
         <?php require 'includes/header.php'; ?>
         
         <div class="container-fluid mt-5">
@@ -79,8 +82,8 @@
                         if ($extension == "jpg" || $extension == "jpeg" || $extension == "png") {
                             $ruta = $directorio . $file;
                             echo "<div class='col-4 text-center'>
-                                <img class='img-fluid' src='$ruta' alt='$file'> 
-                            </div>";
+                                    <img class='img-fluid' src='$ruta' alt='$file' style='max-width: 100px; height: auto;'> 
+                                </div>";
                         }
                     }
                 ?>

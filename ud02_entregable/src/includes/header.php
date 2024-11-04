@@ -27,7 +27,7 @@ if (session_status() == PHP_SESSION_NONE) {
                     <a class="nav-link <?= isset($pagina) && $pagina == "profesores" ? "active" : "" ?>" href="profesores.php">Profesores</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?= isset($pagina) && $pagina == "login" ? "active" : "" ?>" href="login.php">Login</a>
+                    <a class="nav-link <?= isset($pagina) && $pagina == "alta" ? "active" : "" ?>" href="alta.php">Alta</a>
                 </li>
             </ul>
         </div>
