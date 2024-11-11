@@ -1,21 +1,27 @@
 <?php
-session_start();
+    // Login
+    session_start();
 
-$usuario_valido = "rodry";
-$contrasena_valida = "1234";
+    // Credenciales de Inicio de Sesión
+    $usuario_valido = "rodry";
+    $contrasena_valida = "1234";
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $usuario = $_POST['usuario'];
-    $contrasena = $_POST['contrasena'];
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $usuario = $_POST['usuario'];
+        $contrasena = $_POST['contrasena'];
 
-    if ($usuario == $usuario_valido && $contrasena == $contrasena_valida) {
-        $_SESSION['logueado'] = true;
-        header("Location: index.php");
-        exit();
-    } else {
-        $error = "Usuario o contraseña incorrectos";
+        // Comprobamos si las credenciales coincicen
+        if ($usuario == $usuario_valido && $contrasena == $contrasena_valida) {
+            // Usuario logueado
+            $_SESSION['logueado'] = true;
+            // Redirigimos al usuario al index después de iniciar sesión
+            header("Location: index.php");
+            exit();
+        } else {
+            // Credenciales Incorrectas
+            $error = "Usuario o contraseña incorrectos";
+        }
     }
-}
 ?>
 
 <!DOCTYPE html>
@@ -47,4 +53,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 </body>
 </html>
-

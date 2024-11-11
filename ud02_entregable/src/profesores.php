@@ -1,41 +1,40 @@
 <?php
-session_start();
-if (!isset($_SESSION['logueado'])) {
-    header("Location: login.php");
-    exit();
-}
+    // Login
+    session_start();
+    if (!isset($_SESSION['logueado'])) {
+        header("Location: login.php");
+        exit();
+    }
 
-// Datos profesores
-$profesores = [
-    ["nombre" => "Adrián Rodríguez", "correo" => "adrirodr@example.com", "departamento" => "Informática"],
-    ["nombre" => "Paula Cordero", "correo" => "paucord@example.com", "departamento" => "Informática"],
-    ["nombre" => "Alejandro Delgado", "correo" => "aledelg@example.com", "departamento" => "Comercio"],
-];
+    // Datos Profesores
+    $profesores = [
+        ["nombre" => "Adrián Rodríguez", "correo" => "adrirodr@example.com", "departamento" => "Informática"],
+        ["nombre" => "Paula Cordero", "correo" => "paucord@example.com", "departamento" => "Informática"],
+        ["nombre" => "Alejandro Delgado", "correo" => "aledelg@example.com", "departamento" => "Comercio"],
+    ];
 
-function array_orderby()
-{
-    $args = func_get_args();
-    $data = array_shift($args);
-    foreach ($args as $arg) {
-        $sort = [];
-        foreach ($data as $key => $row) {
-            $sort[$key] = $row[$arg];
+    // Ordenar el array Profesores
+    function array_orderby()
+    {
+        $args = func_get_args();
+        $data = array_shift($args);
+        foreach ($args as $arg) {
+            $sort = [];
+            foreach ($data as $key => $row) {
+                $sort[$key] = $row[$arg];
+            }
+            array_multisort($sort, $data);
         }
-        array_multisort($sort, $data);
+        return $data;
     }
-    return $data;
-}
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ordenar'])) {
-    if ($_POST['ordenar'] == 'asc') {
-        $profesores = array_orderby($profesores, 'nombre');
-    } elseif ($_POST['ordenar'] == 'desc') {
-        $profesores = array_reverse(array_orderby($profesores, 'nombre'));
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ordenar'])) {
+        if ($_POST['ordenar'] == 'asc') {
+            $profesores = array_orderby($profesores, 'nombre');
+        } elseif ($_POST['ordenar'] == 'desc') {
+            $profesores = array_reverse(array_orderby($profesores, 'nombre'));
+        }
     }
-}
-
-// Cambiaremos aquí la variable $pagina a 'profesores.php'
-$pagina = 'profesores.php';  // Ajuste para asegurar que sea el nombre del archivo
 ?>
 
 <!DOCTYPE html>
