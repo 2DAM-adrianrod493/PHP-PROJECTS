@@ -34,7 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ordenar'])) {
     }
 }
 
-$pagina = "profesores";
+// Cambiaremos aquí la variable $pagina a 'profesores.php'
+$pagina = 'profesores.php';  // Ajuste para asegurar que sea el nombre del archivo
 ?>
 
 <!DOCTYPE html>
