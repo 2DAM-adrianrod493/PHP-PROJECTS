@@ -90,7 +90,7 @@
         <div class="container-fluid mt-5">
             <h1 class="text-center mb-4">Alumnado</h1>
 
-            <!-- Imágenes -->
+            <!-- Imágenes 
             <div class="container">
                 <div class="row justify-content-center">
                     <?php
@@ -109,6 +109,7 @@
                         ?>
                 </div>
             </div>
+            -->
 
             <!-- Cuadro de Búsqueda -->
             <form method="POST" class="row mb-3">

@@ -35,3 +35,7 @@ header {
     max-width: 100px;
     height: auto;
 }
+
+.carousel-indicators li {
+    font-size: 0; /* Oculta Números de los indicadores del Carousel */
+}
