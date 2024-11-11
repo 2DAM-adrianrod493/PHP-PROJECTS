@@ -18,7 +18,7 @@
     // Descargar TODOS los Alumnos
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['descargar_todos'])) {
         // Ruta de Descarga
-        $ruta_archivo = './src/files_loaded/todos_alumnos.txt';
+        $ruta_archivo = './files_loaded/todos_alumnos.txt';
         
         // Creamos y abrimos el archivo de texto
         $archivo = fopen($ruta_archivo, 'w');
@@ -53,7 +53,7 @@
         
         if ($alumno) {
             // Ruta de Descarga
-            $ruta_archivo = './src/files_loaded/alumno_' . $alumno_id . '.txt';
+            $ruta_archivo = './files_loaded/alumno_' . $alumno_id . '.txt';
             
             // Creamos y abrimos el archivo de texto
             $archivo = fopen($ruta_archivo, 'w');
