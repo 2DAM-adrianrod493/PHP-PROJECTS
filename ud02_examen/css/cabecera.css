@@ -1,0 +1,35 @@
+/* Estilos Encabezado */
+header {
+    background-color: #e0a7ba;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Título */
+.titulo {
+    color: #ffffff;
+    font-weight: bold;
+    align-content: bottom;
+}
+
+/* Enlaces Activos */
+.nav-link.active {
+    color: #e0a7ba;
+}
+
+/* Pasar ratón sobre los Enlaces */
+.nav-link:hover {
+    color: #c7c281;
+}
+
+/* Tamaño Imágenes */
+.image-container img {
+    margin: 8px;
+    max-width: 100px;
+    height: auto;
+}
+
+.bg-success {
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--bs-success-rgb), var(--bs-bg-opacity)) !important;
+}
