@@ -1,0 +1,18 @@
+/* estilo.css */
+body {
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background-color: #343a40;
+}
+
+.navbar-nav .nav-link {
+    color: #fff !important;
+}
+
+footer {
+    background-color: #343a40;
+    color: white;
+    padding: 20px;
+}
