@@ -19,7 +19,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <!-- Contenedor principal -->
     <div class="container-fluid">
         <!-- Barra de navegación -->
-        <nav class="navbar navbar-expand-lg rounded-header py-3 px-4">
+        <nav class="navbar navbar-expand-lg rounded-header py-3 px-4 flex-column">
             <div class="container-fluid d-flex align-items-center justify-content-between">
                 <!-- Logo y título -->
                 <a class="navbar-brand d-flex align-items-center" href="../src/index.php">
@@ -37,8 +37,8 @@ if (session_status() === PHP_SESSION_NONE) {
                 </div>
             </div>
             <!-- Menú de navegación centrado -->
-            <div class="navbar-collapse justify-content-center mt-3 mt-lg-0" id="navbarNav">
-                <ul class="navbar-nav">
+            <div class="navbar-nav-container mt-3">
+                <ul class="navbar-nav justify-content-center">
                     <li class="nav-item">
                         <a class="nav-link" href="../src/index.php">
                             <img src="../img/icono_inicio.png" alt="Inicio" class="icon"> Inicio

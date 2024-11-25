@@ -7,21 +7,57 @@
 
 /* Colores principales para el header */
 .navbar {
+    display: flex;
+    flex-direction: column; /* Asegura que el contenido está en columnas */
+    align-items: center; /* Centra horizontalmente */
+    justify-content: space-between; /* Espacia los elementos */
     background-color: #2913B0; /* Fondo azul personalizado */
     color: #fff; /* Texto blanco */
+    padding-bottom: 20px; /* Espaciado en la parte inferior */
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.navbar a.nav-link {
+/* Contenedor del menú de navegación */
+.navbar-nav-container {
+    width: 100%; /* Ocupa todo el ancho */
+    border-top: 2px solid white; /* Línea divisoria */
+    padding-top: 10px; /* Espaciado arriba */
+}
+
+/* Menú de navegación */
+.navbar-nav {
+    flex-direction: row; /* Opciones en fila horizontal */
+    justify-content: center; /* Centra las opciones */
+    gap: 15px; /* Espaciado entre las opciones */
+}
+
+/* Opciones del menú */
+.navbar-nav .nav-link {
     color: #fff; /* Links blancos */
     font-size: 16px; /* Tamaño de fuente ajustado */
-    font-weight: 500;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 8px;
+    padding: 8px 12px;
+    transition: all 0.3s ease-in-out;
+    border: 1px solid white;
 }
 
-.navbar a.nav-link:hover {
-    color: #d0d4ff; /* Efecto hover más claro */
+.navbar-nav .nav-link:hover {
+    background-color: white;
+    color: #2913B0;
     text-decoration: none; /* Evita subrayados */
 }
 
+/* Íconos del menú */
+.navbar-nav .icon {
+    width: 20px; /* Tamaño del icono */
+    height: 20px;
+    margin-right: 6px; /* Espacio entre icono y texto */
+}
+
+/* Estilo del logo y título */
 .navbar-brand {
     color: #fff; /* Color de la marca */
     font-size: 18px; /* Tamaño ajustado para el logo */
@@ -32,71 +68,32 @@
     color: #d0d4ff; /* Efecto hover en la marca */
 }
 
-/* Forzar el menú a ser horizontal */
-.navbar-nav {
-    flex-direction: row; /* Opciones en fila horizontal */
-    gap: 15px; /* Espaciado entre las opciones */
-}
-
-/* Ocultar el botón de colapsar */
-.navbar-toggler {
-    display: none;
-}
-
-.btn-custom {
-    background-color: #2913B0; /* Fondo del botón */
-    color: white; /* Color del texto */
-    border: none; /* Sin bordes (opcional) */
-}
-
-.btn-custom:hover {
-    background-color: #1F0F8A; /* Color más oscuro al pasar el mouse */
-}
-
+/* Botón de iniciar sesión */
 .btn-custom-white {
     background-color: white; /* Fondo blanco */
     color: #2913B0; /* Texto azul */
     border: 1px solid #2913B0; /* Borde azul */
-}
-
-.btn-custom-white:hover {
-    background-color: #f0f0f0; /* Fondo gris claro al pasar el ratón */
-    color: #1F0F8A; /* Texto azul más oscuro */
-    border-color: #1F0F8A; /* Borde azul más oscuro */
-}
-
-/* Bordes redondeados para el header */
-.rounded-header {
-    border-radius: 15px;
-    background-color: #2913B0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Estilo para las pestañas */
-.navbar-nav .nav-link {
-    color: #2913B0;
-    border: 1px solid white;
-    border-radius: 8px;
-    padding: 10px 15px;
-    margin: 0 10px;
     transition: all 0.3s ease;
-}
-
-.navbar-nav .nav-link:hover {
-    background-color: white;
-    color: #2913B0;
-    text-decoration: none;
-}
-
-/* Estilo para el botón de iniciar sesión */
-.btn-custom-white {
-    background-color: white;
-    color: #2913B0;
-    border: 1px solid #2913B0;
-    transition: all 0.3s ease;
+    font-weight: 500;
 }
 
 .btn-custom-white:hover {
     background-color: #2913B0;
     color: white;
+}
+
+/* Ajustes de responsividad */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column; /* Columnas en pantallas pequeñas */
+    }
+
+    .navbar-nav {
+        flex-wrap: wrap; /* Permite que las opciones se ajusten */
+        justify-content: center; /* Centra las opciones */
+    }
+
+    .navbar-nav .nav-link {
+        margin: 5px 0; /* Espaciado entre filas en móviles */
+    }
 }
