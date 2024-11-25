@@ -19,45 +19,49 @@ if (session_status() === PHP_SESSION_NONE) {
     <!-- Contenedor principal -->
     <div class="container-fluid">
         <!-- Barra de navegación -->
-        <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="../src/index.php">
-                    <img src="../img/logo.png" alt="Logo de Servi-Ferre" width="40" height="40" class="d-inline-block align-text-top">
-                    Servi-Ferre
+        <nav class="navbar navbar-expand-lg rounded-header py-3 px-4">
+            <div class="container-fluid d-flex align-items-center justify-content-between">
+                <!-- Logo y título -->
+                <a class="navbar-brand d-flex align-items-center" href="../src/index.php">
+                    <img src="../img/logo.png" alt="Logo de Servi-Ferre" width="40" height="40" class="me-2">
+                    <span class="fs-4">Servi-Ferre</span>
                 </a>
-                <div class="navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="../src/index.php">
-                                <img src="../img/icono_inicio.png" alt="Inicio" class="icon"> Inicio
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../src/servicios.php">
-                                <img src="../img/icono_servicios.png" alt="Servicios" class="icon"> Servicios
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../src/tecnologias.php">
-                                <img src="../img/icono_tecnologias.png" alt="Tecnologías" class="icon"> Tecnologías
-                            </a>
-                        </li>
-                        <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
-                            <li class="nav-item">
-                                <a class="nav-link" href="../src/empleados.php">
-                                    <img src="../img/icono_empleados.png" alt="Empleados" class="icon"> Empleados
-                                </a>
-                            </li>
-                        <?php endif; ?>
-                    </ul>
-                    <div>
-                        <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
-                            <a href="../includes/logout.php" class="btn btn-outline-danger">Cerrar Sesión</a>
-                        <?php else: ?>
-                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar Sesión</button>
-                        <?php endif; ?>
-                    </div>
+
+                <!-- Botón de Iniciar/Cerrar sesión -->
+                <div>
+                    <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
+                        <a href="../includes/logout.php" class="btn btn-custom-white">Cerrar Sesión</a>
+                    <?php else: ?>
+                        <button class="btn btn-custom-white" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar Sesión</button>
+                    <?php endif; ?>
                 </div>
+            </div>
+            <!-- Menú de navegación centrado -->
+            <div class="navbar-collapse justify-content-center mt-3 mt-lg-0" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../src/index.php">
+                            <img src="../img/icono_inicio.png" alt="Inicio" class="icon"> Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../src/servicios.php">
+                            <img src="../img/icono_servicios.png" alt="Servicios" class="icon"> Servicios
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../src/tecnologias.php">
+                            <img src="../img/icono_tecnologias.png" alt="Tecnologías" class="icon"> Tecnologías
+                        </a>
+                    </li>
+                    <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../src/empleados.php">
+                                <img src="../img/icono_empleados.png" alt="Empleados" class="icon"> Empleados
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                </ul>
             </div>
         </nav>
         <!-- Fin de la barra de navegación -->

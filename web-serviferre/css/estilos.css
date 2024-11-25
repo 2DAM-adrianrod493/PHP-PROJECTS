@@ -42,3 +42,61 @@
 .navbar-toggler {
     display: none;
 }
+
+.btn-custom {
+    background-color: #2913B0; /* Fondo del botón */
+    color: white; /* Color del texto */
+    border: none; /* Sin bordes (opcional) */
+}
+
+.btn-custom:hover {
+    background-color: #1F0F8A; /* Color más oscuro al pasar el mouse */
+}
+
+.btn-custom-white {
+    background-color: white; /* Fondo blanco */
+    color: #2913B0; /* Texto azul */
+    border: 1px solid #2913B0; /* Borde azul */
+}
+
+.btn-custom-white:hover {
+    background-color: #f0f0f0; /* Fondo gris claro al pasar el ratón */
+    color: #1F0F8A; /* Texto azul más oscuro */
+    border-color: #1F0F8A; /* Borde azul más oscuro */
+}
+
+/* Bordes redondeados para el header */
+.rounded-header {
+    border-radius: 15px;
+    background-color: #2913B0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para las pestañas */
+.navbar-nav .nav-link {
+    color: #2913B0;
+    border: 1px solid white;
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    background-color: white;
+    color: #2913B0;
+    text-decoration: none;
+}
+
+/* Estilo para el botón de iniciar sesión */
+.btn-custom-white {
+    background-color: white;
+    color: #2913B0;
+    border: 1px solid #2913B0;
+    transition: all 0.3s ease;
+}
+
+.btn-custom-white:hover {
+    background-color: #2913B0;
+    color: white;
+}
