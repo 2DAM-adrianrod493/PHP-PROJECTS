@@ -1,5 +1,8 @@
 <?php
-session_start();
+// Iniciar sesión sólo si no está activa
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -7,36 +10,58 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Servi-Ferre</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Estilo personalizado -->
+    <link rel="stylesheet" href="../css/estilos.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.php">
-                <img src="../images/logo.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
-                Servi-Ferre
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="servicios.php">Servicios</a></li>
-                    <li class="nav-item"><a class="nav-link" href="tecnologias.php">Tecnologías</a></li>
-                    <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
-                        <li class="nav-item"><a class="nav-link" href="empleados.php">Empleados</a></li>
-                    <?php endif; ?>
-                    <li class="nav-item"><a class="nav-link" href="contacto.php">Contacto</a></li>
-                </ul>
-                <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
-                    <a href="../src/logout.php" class="btn btn-outline-danger">Cerrar Sesión</a>
-                <?php else: ?>
-                    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar Sesión</button>
-                <?php endif; ?>
+    <!-- Contenedor principal -->
+    <div class="container-fluid">
+        <!-- Barra de navegación -->
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../src/index.php">
+                    <img src="../img/logo.png" alt="Logo de Servi-Ferre" width="40" height="40" class="d-inline-block align-text-top">
+                    Servi-Ferre
+                </a>
+                <div class="navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../src/index.php">
+                                <img src="../img/icono_inicio.png" alt="Inicio" class="icon"> Inicio
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../src/servicios.php">
+                                <img src="../img/icono_servicios.png" alt="Servicios" class="icon"> Servicios
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../src/tecnologias.php">
+                                <img src="../img/icono_tecnologias.png" alt="Tecnologías" class="icon"> Tecnologías
+                            </a>
+                        </li>
+                        <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../src/empleados.php">
+                                    <img src="../img/icono_empleados.png" alt="Empleados" class="icon"> Empleados
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                    </ul>
+                    <div>
+                        <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
+                            <a href="../includes/logout.php" class="btn btn-outline-danger">Cerrar Sesión</a>
+                        <?php else: ?>
+                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar Sesión</button>
+                        <?php endif; ?>
+                    </div>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+        <!-- Fin de la barra de navegación -->
+    </div>
 
     <!-- Modal Login -->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -47,7 +72,7 @@ session_start();
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="login.php">
+                    <form method="POST" action="../includes/login.php">
                         <div class="mb-3">
                             <label for="username" class="form-label">Usuario</label>
                             <input type="text" class="form-control" id="username" name="username" required>
@@ -62,7 +87,9 @@ session_start();
             </div>
         </div>
     </div>
+    <!-- Fin Modal Login -->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

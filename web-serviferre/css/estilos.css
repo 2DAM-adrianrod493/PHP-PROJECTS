@@ -1,0 +1,44 @@
+/* Ajustar tamaño de los íconos en la barra de navegación */
+.navbar-nav .nav-link .icon {
+    width: 20px; /* Tamaño ligeramente mayor que el texto */
+    height: 20px;
+    margin-right: 6px; /* Espacio entre el icono y el texto */
+}
+
+/* Colores principales para el header */
+.navbar {
+    background-color: #2913B0; /* Fondo azul personalizado */
+    color: #fff; /* Texto blanco */
+}
+
+.navbar a.nav-link {
+    color: #fff; /* Links blancos */
+    font-size: 16px; /* Tamaño de fuente ajustado */
+    font-weight: 500;
+}
+
+.navbar a.nav-link:hover {
+    color: #d0d4ff; /* Efecto hover más claro */
+    text-decoration: none; /* Evita subrayados */
+}
+
+.navbar-brand {
+    color: #fff; /* Color de la marca */
+    font-size: 18px; /* Tamaño ajustado para el logo */
+    font-weight: bold;
+}
+
+.navbar-brand:hover {
+    color: #d0d4ff; /* Efecto hover en la marca */
+}
+
+/* Forzar el menú a ser horizontal */
+.navbar-nav {
+    flex-direction: row; /* Opciones en fila horizontal */
+    gap: 15px; /* Espaciado entre las opciones */
+}
+
+/* Ocultar el botón de colapsar */
+.navbar-toggler {
+    display: none;
+}
