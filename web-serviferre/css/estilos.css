@@ -34,6 +34,9 @@
 
 /* Opciones del menú */
 .navbar-nav .nav-link {
+    display: flex; /* Para alinear el ícono y el texto */
+    align-items: center; /* Centrar verticalmente íconos y texto */
+    justify-content: center; /* Centra el contenido horizontalmente */
     color: #fff; /* Links blancos */
     font-size: 16px; /* Tamaño de fuente ajustado */
     font-weight: bold;
@@ -52,9 +55,9 @@
 
 /* Íconos del menú */
 .navbar-nav .icon {
-    width: 20px; /* Tamaño del icono */
-    height: 20px;
-    margin-right: 6px; /* Espacio entre icono y texto */
+    width: 24px; /* Tamaño del icono ajustado */
+    height: 24px;
+    margin-right: 8px; /* Espacio entre icono y texto */
 }
 
 /* Estilo del logo y título */
