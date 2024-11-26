@@ -21,10 +21,10 @@ if (session_status() === PHP_SESSION_NONE) {
         <!-- Barra de navegación -->
         <nav class="navbar navbar-expand-lg rounded-header py-3 px-4 flex-column">
             <div class="container-fluid d-flex align-items-center justify-content-between">
-                <!-- Logo y título -->
+                <!-- Logo y títulos juntos -->
                 <a class="navbar-brand d-flex align-items-center" href="../src/index.php">
-                    <img src="../img/logo.png" alt="Logo de Servi-Ferre" width="40" height="40" class="me-2">
-                    <span class="fs-4">Servi-Ferre</span>
+                    <img src="../img/logo.png" alt="Logo de Servi-Ferre" width="40" height="40" class="img-fluid">
+                    <img src="../img/logo_horizontal.png" alt="Logo Horizontal de Servi-Ferre" width="230" height="170" class="img-fluid ms-1">
                 </a>
 
                 <!-- Botón de Iniciar/Cerrar sesión -->

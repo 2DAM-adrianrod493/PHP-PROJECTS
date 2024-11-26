@@ -15,7 +15,7 @@
     color: #fff; /* Texto blanco */
     padding-bottom: 20px; /* Espaciado en la parte inferior */
     border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
 }
 
 /* Contenedor del menú de navegación */
@@ -99,4 +99,21 @@
     .navbar-nav .nav-link {
         margin: 5px 0; /* Espaciado entre filas en móviles */
     }
+}
+
+/* Carousel */
+.carousel-inner img {
+    width: 100%; /* Asegura que la imagen se ajuste al ancho del contenedor */
+    height: 450px; /* Altura fija para todas las imágenes (ajústala según prefieras) */
+    object-fit: cover; /* Recorta la imagen para que encaje perfectamente */
+}
+
+/* Agregar sombra a los botones */
+.btn-shadow {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* Sombra personalizada para los cards */
+.card-custom-shadow {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
