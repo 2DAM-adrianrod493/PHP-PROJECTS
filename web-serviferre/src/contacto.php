@@ -44,6 +44,25 @@
     </form>
 </div>
 
+<!-- Modal de Éxito -->
+<?php if (isset($_GET['enviado']) && $_GET['enviado'] == 'true'): ?>
+<div class="modal fade show" id="enviadoModal" tabindex="-1" aria-labelledby="enviadoModalLabel" aria-hidden="false" style="display: block;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="enviadoModalLabel">¡Enviado Correctamente!</h5>
+            </div>
+            <div class="modal-body">
+                Tu mensaje ha sido enviado con éxito. Nos pondremos en contacto contigo lo antes posible.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+
 <!-- Llamado a la Acción -->
 <div class="text-center py-5" style="background: linear-gradient(90deg, #2913B0, #2913B0); color: white;">
     <h2 class="fw-bold mb-4">¿Prefieres Hablar Directamente?</h2>
@@ -52,3 +71,17 @@
 </div>
 
 <?php include('../includes/footer.php'); ?>
+
+<!-- Scripts de Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Asegurarse de que el modal se cierre automáticamente después de un par de segundos
+    <?php if (isset($_GET['enviado']) && $_GET['enviado'] == 'true'): ?>
+        setTimeout(function() {
+            var modal = new bootstrap.Modal(document.getElementById('enviadoModal'));
+            modal.hide(); // Esto cerrará el modal
+        }, 5000); // Cerrar después de 5 segundos
+    <?php endif; ?>
+</script>
