@@ -20,17 +20,4 @@ INSERT INTO contacto (nombre, apellidos, email, mensaje) VALUES ('Ricardo', 'Men
 INSERT INTO contacto (nombre, apellidos, email, mensaje) VALUES ('Lucía', 'Torres', 'lucia.torres@ejemplo.com', 'Asesoría sobre instalación de sistemas de energía renovable.');
 INSERT INTO contacto (nombre, apellidos, email, mensaje) VALUES ('Manuel', 'Serrano', 'manuel.serrano@ejemplo.com', 'Quiero instalar cableado de red en mi oficina.');
 INSERT INTO contacto (nombre, apellidos, email, mensaje) VALUES ('Eva', 'Ruiz', 'eva.ruiz@ejemplo.com', 'Necesito una consulta sobre antenas para televisión.');
-INSERT INTO contacto (nombre, apellidos, email, mensaje) VALUES ('Antonio', 'Jiménez', 'antonio.jimenez@ejemplo.com', 'Presupuesto para instalación de iluminación RGB en jardines.');INSERT INTO contacto (nombre, apellidos, email, mensaje) VALUES ('Adrián', 'Salamanca Sola', 'adritela55@gmail.com', 'fseeeeeeeeeeeeeee');
-INSERT INTO contacto (nombre, apellidos, email, mensaje) VALUES ('Adrián', 'Salamanca Sola', 'adritela55@gmail.com', 'fseeeeeeeeeeeeeee');
-INSERT INTO contacto (nombre, apellidos, email, mensaje) VALUES ('Adrián', 'Salamanca Sola', 'arodrod0708@g.educaand.es', 'ff');
-INSERT INTO contacto (nombre, apellidos, email, mensaje) VALUES ('Adrián', 'Rodríguez', 'arodrod0708@g.educaand.es', 'dada');
-INSERT INTO contacto (nombre, apellidos, email, mensaje) VALUES ('Adrián', 'Rodríguez', 'arodrod0708@g.educaand.es', 'dada');
-INSERT INTO contacto (nombre, apellidos, email, mensaje) VALUES ('Adrián', 'Salamanca Sola', 'arodrod0708@g.educaand.es', 'dsadas');
-INSERT INTO contacto (nombre, apellidos, email, mensaje) VALUES ('aa', 'aaa', 'aa@gmail.com', 'adwdw');
-INSERT INTO contacto (nombre, apellidos, email, mensaje) VALUES ('Adrián', 'Rodríguez', 'adritela55@gmail.com', 'adad');
-INSERT INTO contacto (nombre, apellidos, email, mensaje) VALUES ('Adrián', 'Rodríguez', 'adritela55@gmail.com', 'adad');
-INSERT INTO contacto (nombre, apellidos, email, mensaje) VALUES ('Adrián', 'Rodríguez', 'adritela55@gmail.com', 'adad');
-INSERT INTO contacto (nombre, apellidos, email, mensaje) VALUES ('Adrián', 'Rodríguez', 'adritela55@gmail.com', 'adad');
-INSERT INTO contacto (nombre, apellidos, email, mensaje) VALUES ('Adrián', 'Rodríguez', 'adritela55@gmail.com', 'adad');
-INSERT INTO contacto (nombre, apellidos, email, mensaje) VALUES ('Adrián', 'Rodríguez', 'adritela55@gmail.com', 'adad');
-INSERT INTO contacto (nombre, apellidos, email, mensaje) VALUES ('Adrián', 'Rodríguez', 'adritela55@gmail.com', 'adad');
+INSERT INTO contacto (nombre, apellidos, email, mensaje) VALUES ('Antonio', 'Jiménez', 'antonio.jimenez@ejemplo.com', 'Presupuesto para instalación de iluminación RGB en jardines.');

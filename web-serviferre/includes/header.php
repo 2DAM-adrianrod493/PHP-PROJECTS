@@ -1,5 +1,4 @@
 <?php
-// Iniciar sesión sólo si no está activa
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -12,22 +11,21 @@ if (session_status() === PHP_SESSION_NONE) {
     <title>Servi-Ferre</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Estilo personalizado -->
     <link rel="stylesheet" href="../css/estilos.css">
 </head>
 <body>
-    <!-- Contenedor principal -->
+    <!-- 1º Contenedor -->
     <div class="container-fluid">
-        <!-- Barra de navegación -->
+        <!-- Barra Navegación -->
         <nav class="navbar navbar-expand-lg rounded-header py-3 px-4 flex-column">
             <div class="container-fluid d-flex align-items-center justify-content-between">
-                <!-- Logo y títulos juntos -->
+                <!-- Logo y Título -->
                 <a class="navbar-brand d-flex align-items-center" href="../src/index.php">
                     <img src="../img/logo.png" alt="Logo de Servi-Ferre" width="40" height="40" class="img-fluid">
                     <img src="../img/logo_horizontal.png" alt="Logo Horizontal de Servi-Ferre" width="230" height="170" class="img-fluid ms-1">
                 </a>
 
-                <!-- Botón de Iniciar/Cerrar sesión -->
+                <!-- Botón Iniciar/Cerrar sesión -->
                 <div>
                     <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
                         <a href="../includes/logout.php" class="btn btn-custom-white">Cerrar Sesión</a>
@@ -36,7 +34,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <?php endif; ?>
                 </div>
             </div>
-            <!-- Menú de navegación centrado -->
+            <!-- Menú Navegación -->
             <div class="navbar-nav-container mt-3">
                 <ul class="navbar-nav justify-content-center">
                     <li class="nav-item">
@@ -68,9 +66,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <?php endif; ?>
                 </ul>
             </div>
-
         </nav>
-        <!-- Fin de la barra de navegación -->
     </div>
 
     <!-- Modal Login -->
@@ -91,13 +87,17 @@ if (session_status() === PHP_SESSION_NONE) {
                             <label for="password" class="form-label">Contraseña</label>
                             <input type="password" class="form-control" id="password" name="password" required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                        <!-- Botón centrado y tamaño intermedio -->
+                        <div class="text-center">
+                            <button type="submit" 
+                                    class="btn btn-primary btn-medium btn-shadow" 
+                                    style="background-color: #2913B0; border-color: #2913B0;">Iniciar Sesión</button>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Fin Modal Login -->
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

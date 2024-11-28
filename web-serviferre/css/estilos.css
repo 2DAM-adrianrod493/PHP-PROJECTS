@@ -117,3 +117,14 @@
 .card-custom-shadow {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
+
+.modal .btn-custom-login {
+    background-color: #2913B0 !important; /* Color de fondo correcto */
+    color: #FFFFFF !important; /* Texto blanco para contraste */
+    border: none;
+}
+
+.modal .btn-custom-login:hover {
+    background-color: #1E0F8C !important; /* Color de fondo más oscuro al pasar el cursor */
+    color: #FFFFFF !important; /* Asegura que el texto sigue siendo blanco */
+}

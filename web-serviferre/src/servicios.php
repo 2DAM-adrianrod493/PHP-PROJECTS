@@ -1,33 +1,33 @@
 <?php include('../includes/header.php'); ?>
 
 <div class="container my-5">
-    <!-- Título del encabezado -->
+    <!-- 1º Campo: Título -->
     <div class="container text-center">
         <h1 class="display-6 fw-bold" style="color: #2913B0;">Nuestros Servicios</h1> 
     </div>
 
-    <!-- Carousel de imágenes -->
+    <!-- Carousel -->
     <div id="servicesCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
         <?php
-        // Ruta del directorio de imágenes relativa a servicios.php
+        // Ruta de las imágenes
         $carouselDir = '../img/carousel/';
         $validExtensions = ['png', 'jpg', 'jpeg'];
 
-        // Escanear el directorio y obtener las imágenes válidas
+        // Analizamos la ruta y obtenemos las imágenes válidas
         $images = array_filter(scandir($carouselDir), function ($file) use ($carouselDir, $validExtensions) {
             $filePath = $carouselDir . $file;
             $extension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
             return is_file($filePath) && in_array($extension, $validExtensions);
         });
 
-        // Convertir a un array indexado por valores (por si scandir desordena índices)
+        // Convertimos a un array indexado por valores (por si scandir nos desordena índices)
         $images = array_values($images);
 
-        // Verifica que hay imágenes disponibles
+        // Verificamos si hay Imágenes Disponibles
         if (count($images) > 0):
         ?>
 
-        <!-- Indicadores (puntos debajo del carousel) -->
+        <!-- Indicadores -->
         <div class="carousel-indicators">
             <?php foreach ($images as $index => $image): ?>
                 <button type="button" data-bs-target="#servicesCarousel" data-bs-slide-to="<?= $index; ?>"
@@ -36,7 +36,7 @@
             <?php endforeach; ?>
         </div>
 
-        <!-- Contenedor de imágenes -->
+        <!-- Contenedor de Imágenes -->
         <div class="carousel-inner">
             <?php foreach ($images as $index => $image): ?>
                 <div class="carousel-item <?= $index === 0 ? 'active' : ''; ?>">
@@ -45,7 +45,7 @@
             <?php endforeach; ?>
         </div>
 
-        <!-- Controles de navegación (flechas) -->
+        <!-- Flechas Laterales del Carousel -->
         <button class="carousel-control-prev" type="button" data-bs-target="#servicesCarousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Anterior</span>
@@ -67,7 +67,7 @@
         <div class="row gy-4">
             <!-- Servicio 1 -->
             <div class="col-md-4">
-                <div class="card h-100 border-0 card-custom-shadow"> <!-- Se añadió la clase 'card-custom-shadow' -->
+                <div class="card h-100 border-0 card-custom-shadow">
                     <div class="card-body">
                         <h3 class="card-title fw-bold" style="color: #2913B0;">⚡ Instalación en Viviendas</h3>
                         <p class="card-text text-muted">Realizamos instalaciones eléctricas completas en hogares, cuidando cada detalle para garantizar tu seguridad y comodidad.</p>
@@ -76,7 +76,7 @@
             </div>
             <!-- Servicio 2 -->
             <div class="col-md-4">
-                <div class="card h-100 border-0 card-custom-shadow"> <!-- Se añadió la clase 'card-custom-shadow' -->
+                <div class="card h-100 border-0 card-custom-shadow">
                     <div class="card-body">
                         <h3 class="card-title fw-bold" style="color: #2913B0;">🌐 Redes de Datos</h3>
                         <p class="card-text text-muted">Conecta tu hogar o empresa con instalaciones profesionales en red para internet de alta velocidad.</p>
@@ -85,7 +85,7 @@
             </div>
             <!-- Servicio 3 -->
             <div class="col-md-4">
-                <div class="card h-100 border-0 card-custom-shadow"> <!-- Se añadió la clase 'card-custom-shadow' -->
+                <div class="card h-100 border-0 card-custom-shadow">
                     <div class="card-body">
                         <h3 class="card-title fw-bold" style="color: #2913B0;">🎥 Cámaras de Seguridad</h3>
                         <p class="card-text text-muted">Instalamos cámaras de última generación para proteger lo que más te importa, con monitoreo en tiempo real.</p>
@@ -94,7 +94,7 @@
             </div>
             <!-- Servicio 4 -->
             <div class="col-md-4">
-                <div class="card h-100 border-0 card-custom-shadow"> <!-- Se añadió la clase 'card-custom-shadow' -->
+                <div class="card h-100 border-0 card-custom-shadow">
                     <div class="card-body">
                         <h3 class="card-title fw-bold" style="color: #2913B0;">🔔 Alarmas y Volumétricos</h3>
                         <p class="card-text text-muted">Aumenta la seguridad con alarmas modernas y sistemas volumétricos para detectar intrusos de inmediato.</p>
@@ -103,7 +103,7 @@
             </div>
             <!-- Servicio 5 -->
             <div class="col-md-4">
-                <div class="card h-100 border-0 card-custom-shadow"> <!-- Se añadió la clase 'card-custom-shadow' -->
+                <div class="card h-100 border-0 card-custom-shadow">
                     <div class="card-body">
                         <h3 class="card-title fw-bold" style="color: #2913B0;">📡 Antenas y Parabólicas</h3>
                         <p class="card-text text-muted">Instalamos antenas terrestres y parabólicas para garantizar la mejor señal en tu hogar o negocio.</p>
@@ -112,7 +112,7 @@
             </div>
             <!-- Servicio 6 -->
             <div class="col-md-4">
-                <div class="card h-100 border-0 card-custom-shadow"> <!-- Se añadió la clase 'card-custom-shadow' -->
+                <div class="card h-100 border-0 card-custom-shadow">
                     <div class="card-body">
                         <h3 class="card-title fw-bold" style="color: #2913B0;">💡 Iluminación RGB</h3>
                         <p class="card-text text-muted">Transforma cualquier espacio con iluminación LED RGB personalizada para un toque moderno y colorido.</p>
@@ -121,7 +121,7 @@
             </div>
             <!-- Servicio 7 -->
             <div class="col-md-4">
-                <div class="card h-100 border-0 card-custom-shadow"> <!-- Se añadió la clase 'card-custom-shadow' -->
+                <div class="card h-100 border-0 card-custom-shadow">
                     <div class="card-body">
                         <h3 class="card-title fw-bold" style="color: #2913B0;">🌞 Placas Solares</h3>
                         <p class="card-text text-muted">Aprovecha la energía del sol con nuestras soluciones de instalación de paneles solares para ahorrar y cuidar el planeta.</p>
@@ -130,7 +130,7 @@
             </div>
             <!-- Servicio 8 -->
             <div class="col-md-4">
-                <div class="card h-100 border-0 card-custom-shadow"> <!-- Se añadió la clase 'card-custom-shadow' -->
+                <div class="card h-100 border-0 card-custom-shadow">
                     <div class="card-body">
                         <h3 class="card-title fw-bold" style="color: #2913B0;">❄️ Aires acondicionados</h3>
                         <p class="card-text text-muted">Mantén la temperatura perfecta con nuestros servicios de instalación y mantenimiento de aires acondicionados.</p>
