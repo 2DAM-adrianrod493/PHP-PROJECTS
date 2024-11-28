@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-// Destruir sesión
+// Destruimos sesión
 session_destroy();
 
-// Redirigir al inicio (index.php en src/)
+// Redirigimos al Index
 header("Location: ../src/index.php");
 exit();
 ?>

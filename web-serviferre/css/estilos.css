@@ -1,44 +1,44 @@
-/* Ajustar tamaño de los íconos en la barra de navegación */
+/* Tamaño Iconos Barra Navegación */
 .navbar-nav .nav-link .icon {
-    width: 20px; /* Tamaño ligeramente mayor que el texto */
+    width: 20px;
     height: 20px;
-    margin-right: 6px; /* Espacio entre el icono y el texto */
+    margin-right: 6px;
 }
 
-/* Colores principales para el header */
+/* Colores Header */
 .navbar {
     display: flex;
-    flex-direction: column; /* Asegura que el contenido está en columnas */
-    align-items: center; /* Centra horizontalmente */
-    justify-content: space-between; /* Espacia los elementos */
-    background-color: #2913B0; /* Fondo azul personalizado */
-    color: #fff; /* Texto blanco */
-    padding-bottom: 20px; /* Espaciado en la parte inferior */
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #2913B0;
+    color: #fff;
+    padding-bottom: 20px;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
 }
 
-/* Contenedor del menú de navegación */
+/* Contenedor Menú Navegación */
 .navbar-nav-container {
-    width: 100%; /* Ocupa todo el ancho */
-    border-top: 2px solid white; /* Línea divisoria */
-    padding-top: 10px; /* Espaciado arriba */
+    width: 100%;
+    border-top: 2px solid white;
+    padding-top: 10px;
 }
 
-/* Menú de navegación */
+/* Menú Navegación */
 .navbar-nav {
-    flex-direction: row; /* Opciones en fila horizontal */
-    justify-content: center; /* Centra las opciones */
-    gap: 15px; /* Espaciado entre las opciones */
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
 }
 
-/* Opciones del menú */
+/* Opciones Menú */
 .navbar-nav .nav-link {
-    display: flex; /* Para alinear el ícono y el texto */
-    align-items: center; /* Centrar verticalmente íconos y texto */
-    justify-content: center; /* Centra el contenido horizontalmente */
-    color: #fff; /* Links blancos */
-    font-size: 16px; /* Tamaño de fuente ajustado */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 16px;
     font-weight: bold;
     text-align: center;
     border-radius: 8px;
@@ -50,32 +50,32 @@
 .navbar-nav .nav-link:hover {
     background-color: white;
     color: #2913B0;
-    text-decoration: none; /* Evita subrayados */
+    text-decoration: none;
 }
 
-/* Íconos del menú */
+/* Iconos Menú */
 .navbar-nav .icon {
-    width: 24px; /* Tamaño del icono ajustado */
+    width: 24px;
     height: 24px;
-    margin-right: 8px; /* Espacio entre icono y texto */
+    margin-right: 8px;
 }
 
-/* Estilo del logo y título */
+/* Estilo Logo y Título */
 .navbar-brand {
-    color: #fff; /* Color de la marca */
-    font-size: 18px; /* Tamaño ajustado para el logo */
+    color: #fff;
+    font-size: 18px;
     font-weight: bold;
 }
 
 .navbar-brand:hover {
-    color: #d0d4ff; /* Efecto hover en la marca */
+    color: #d0d4ff;
 }
 
-/* Botón de iniciar sesión */
+/* Botón Iniciar Sesión */
 .btn-custom-white {
-    background-color: white; /* Fondo blanco */
-    color: #2913B0; /* Texto azul */
-    border: 1px solid #2913B0; /* Borde azul */
+    background-color: white;
+    color: #2913B0;
+    border: 1px solid #2913B0;
     transition: all 0.3s ease;
     font-weight: 500;
 }
@@ -85,46 +85,46 @@
     color: white;
 }
 
-/* Ajustes de responsividad */
+/* Responsividad */
 @media (max-width: 768px) {
     .navbar {
-        flex-direction: column; /* Columnas en pantallas pequeñas */
+        flex-direction: column;
     }
 
     .navbar-nav {
-        flex-wrap: wrap; /* Permite que las opciones se ajusten */
-        justify-content: center; /* Centra las opciones */
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .navbar-nav .nav-link {
-        margin: 5px 0; /* Espaciado entre filas en móviles */
+        margin: 5px 0;
     }
 }
 
 /* Carousel */
 .carousel-inner img {
-    width: 100%; /* Asegura que la imagen se ajuste al ancho del contenedor */
-    height: 450px; /* Altura fija para todas las imágenes (ajústala según prefieras) */
-    object-fit: cover; /* Recorta la imagen para que encaje perfectamente */
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
 }
 
-/* Agregar sombra a los botones */
+/* Sombra Botones */
 .btn-shadow {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
 }
 
-/* Sombra personalizada para los cards */
+/* Sombra Cards */
 .card-custom-shadow {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .modal .btn-custom-login {
-    background-color: #2913B0 !important; /* Color de fondo correcto */
-    color: #FFFFFF !important; /* Texto blanco para contraste */
+    background-color: #2913B0 !important;
+    color: #FFFFFF !important;
     border: none;
 }
 
 .modal .btn-custom-login:hover {
-    background-color: #1E0F8C !important; /* Color de fondo más oscuro al pasar el cursor */
-    color: #FFFFFF !important; /* Asegura que el texto sigue siendo blanco */
+    background-color: #1E0F8C !important;
+    color: #FFFFFF !important;
 }

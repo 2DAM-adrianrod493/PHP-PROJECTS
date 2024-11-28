@@ -2,8 +2,8 @@
 session_start();
 
 // Credenciales Admin
-$admin_user = "sonic555";
-$admin_pass = "sonic555";
+$admin_user = "serviferre";
+$admin_pass = "serviferre";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
@@ -13,14 +13,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Iniciar sesión
         $_SESSION['logged_in'] = true;
 
-        // Redirigir a empleados.php en src/
+        // Redirigimos a Empleados
         header("Location: ../src/empleados.php");
         exit();
     } else {
-        // Guardar mensaje de error en sesión
         $_SESSION['error'] = "Usuario o contraseña incorrectos.";
 
-        // Redirigir de vuelta a index.php en src/
+        // Redirigimos de vuelta al Index
         header("Location: ../src/index.php");
         exit();
     }
