@@ -56,6 +56,7 @@
                 Tu mensaje ha sido enviado con éxito. Nos pondremos en contacto contigo lo antes posible.
             </div>
             <div class="modal-footer">
+                <!-- Botón de Cerrar, sin JavaScript adicional, solo con data-bs-dismiss -->
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cerrar</button>
             </div>
         </div>
@@ -75,13 +76,3 @@
 <!-- Scripts de Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-    // Asegurarse de que el modal se cierre automáticamente después de un par de segundos
-    <?php if (isset($_GET['enviado']) && $_GET['enviado'] == 'true'): ?>
-        setTimeout(function() {
-            var modal = new bootstrap.Modal(document.getElementById('enviadoModal'));
-            modal.hide(); // Esto cerrará el modal
-        }, 5000); // Cerrar después de 5 segundos
-    <?php endif; ?>
-</script>
