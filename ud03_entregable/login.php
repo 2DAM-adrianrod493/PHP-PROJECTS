@@ -28,7 +28,6 @@ if (isset($_POST['nombre_usuario']) && isset($_POST['password'])) {
         $error = "El nombre de usuario no existe.";
     }
 }
-
 ?>
 
 <!-- Formulario Login -->
