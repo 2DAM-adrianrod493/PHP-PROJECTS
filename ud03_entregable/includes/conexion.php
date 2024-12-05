@@ -1,14 +1,13 @@
 <?php
+// Conexión a la base de datos
 $servidor = "localhost";
 $usuario = "root";
 $contraseña = "";
-$base_datos = "biblioteca_virtual";
+$bd = "biblioteca_virtual";
 
-// Creamos Conexión
-$conexion = new mysqli($servidor, $usuario, $contraseña, $base_datos);
+$conexion = new mysqli($servidor, $usuario, $contraseña, $bd);
 
-// Verificamos Conexión
 if ($conexion->connect_error) {
-    die("Conexión Fallida: " . $conexion->connect_error);
+    die("Conexión fallida: " . $conexion->connect_error);
 }
 ?>

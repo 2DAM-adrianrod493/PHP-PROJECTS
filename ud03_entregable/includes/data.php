@@ -1,42 +1,50 @@
 <?php
-// Conexión a la base de datos
-$servidor = "localhost";
-$usuario = "root";
-$contraseña = "";
-$bd = "biblioteca_virtual";
+include('conexion.php');
 
-$conexion = new mysqli($servidor, $usuario, $contraseña, $bd);
+// Función para obtener libros con opción de filtro por categoría
+function obtenerLibros($conexion, $id_categoria = null) {
+    $query = "SELECT libros.id_libro, libros.titulo, libros.autor, libros.imagen, libros.disponible, categorias.nombre AS categoria
+              FROM libros
+              JOIN categorias ON libros.id_categoria = categorias.id_categoria";
+    
+    if ($id_categoria) {
+        $query .= " WHERE libros.id_categoria = $id_categoria";
+    }
 
-if ($conexion->connect_error) {
-    die("Conexión fallida: " . $conexion->connect_error);
+    $result = $conexion->query($query);
+    return $result->fetch_all(MYSQLI_ASSOC);
 }
 
-// Función para obtener todos los libros
-function obtenerLibros($conexion, $categoria = '') {
-    $sql = "SELECT libros.id_libro, libros.titulo, libros.autor, libros.imagen, categorias.nombre as categoria
-            FROM libros
-            JOIN categorias ON libros.id_categoria = categorias.id_categoria";
-    
-    if ($categoria) {
-        $sql .= " WHERE libros.id_categoria = ?";
-    }
-    
-    $stmt = $conexion->prepare($sql);
-    
-    if ($categoria) {
-        $stmt->bind_param("i", $categoria);
-    }
+// Función para obtener categorías
+function obtenerCategorias($conexion) {
+    $query = "SELECT * FROM categorias";
+    $result = $conexion->query($query);
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
 
+// Función para autenticar un usuario con nombre de usuario (no email)
+function autenticarUsuario($conexion, $nombre_usuario, $contraseña) {
+    $sql = "SELECT * FROM usuarios WHERE nombre_usuario = ?";
+    $stmt = $conexion->prepare($sql);
+    $stmt->bind_param("s", $nombre_usuario);
     $stmt->execute();
     $resultado = $stmt->get_result();
-    return $resultado->fetch_all(MYSQLI_ASSOC);
+    $usuario = $resultado->fetch_assoc();
+
+    if ($usuario && password_verify($contraseña, $usuario['password'])) {
+        return $usuario; // Usuario autenticado
+    } else {
+        return false; // Usuario no encontrado o contraseña incorrecta
+    }
 }
 
-// Función para obtener las categorías
-function obtenerCategorias($conexion) {
-    $sql = "SELECT * FROM categorias";
-    $resultado = $conexion->query($sql);
-    return $resultado->fetch_all(MYSQLI_ASSOC);
+
+// Función para obtener el nombre del usuario logueado
+function obtenerUsuarioLogueado() {
+    if (isset($_SESSION['usuario'])) {
+        return $_SESSION['usuario'];
+    }
+    return null;
 }
 
 // Función para registrar una reserva
@@ -62,35 +70,9 @@ function obtenerReservasUsuario($conexion, $id_usuario) {
     return $resultado->fetch_all(MYSQLI_ASSOC);
 }
 
-// Función para registrar un nuevo libro
-function registrarLibro($conexion, $titulo, $autor, $id_categoria, $imagen) {
-    $sql = "INSERT INTO libros (titulo, autor, id_categoria, imagen) VALUES (?, ?, ?, ?)";
-    $stmt = $conexion->prepare($sql);
-    $stmt->bind_param("ssis", $titulo, $autor, $id_categoria, $imagen);
-    return $stmt->execute();
-}
-
-// Función para eliminar un libro
-function eliminarLibro($conexion, $id_libro) {
-    $sql = "DELETE FROM libros WHERE id_libro = ?";
-    $stmt = $conexion->prepare($sql);
-    $stmt->bind_param("i", $id_libro);
-    return $stmt->execute();
-}
-
-// Función para obtener un libro por su ID
-function obtenerLibroPorId($conexion, $id_libro) {
-    $sql = "SELECT * FROM libros WHERE id_libro = ?";
-    $stmt = $conexion->prepare($sql);
-    $stmt->bind_param("i", $id_libro);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
-    return $resultado->fetch_assoc();
-}
-
-// Función para obtener todas las reservas
+// Función para obtener todas las reservas (para administradores)
 function obtenerTodasLasReservas($conexion) {
-    $sql = "SELECT usuarios.nombre, libros.titulo, reservas.fecha_reserva
+    $sql = "SELECT usuarios.nombre_usuario, libros.titulo, reservas.fecha_reserva
             FROM reservas
             JOIN usuarios ON reservas.id_usuario = usuarios.id_usuario
             JOIN libros ON reservas.id_libro = libros.id_libro";
@@ -99,38 +81,12 @@ function obtenerTodasLasReservas($conexion) {
     return $resultado->fetch_all(MYSQLI_ASSOC);
 }
 
-// Función para autenticar un usuario
-function autenticarUsuario($conexion, $email, $contraseña) {
-    $sql = "SELECT * FROM usuarios WHERE email = ?";
-    $stmt = $conexion->prepare($sql);
-    $stmt->bind_param("s", $email);
+// Función para obtener un libro por su ID
+function obtenerLibroPorId($conexion, $id_libro) {
+    $query = "SELECT * FROM libros WHERE id_libro = ?";
+    $stmt = $conexion->prepare($query);
+    $stmt->bind_param("i", $id_libro);
     $stmt->execute();
-    $resultado = $stmt->get_result();
-    $usuario = $resultado->fetch_assoc();
-
-    if ($usuario && password_verify($contraseña, $usuario['contraseña'])) {
-        return $usuario; // Usuario autenticado
-    } else {
-        return false; // Usuario no encontrado o contraseña incorrecta
-    }
-}
-
-// Función para registrar un nuevo usuario
-function registrarUsuario($conexion, $nombre, $email, $contraseña) {
-    $contraseña_hash = password_hash($contraseña, PASSWORD_DEFAULT);
-    $sql = "INSERT INTO usuarios (nombre, email, contraseña) VALUES (?, ?, ?)";
-    $stmt = $conexion->prepare($sql);
-    $stmt->bind_param("sss", $nombre, $email, $contraseña_hash);
-    return $stmt->execute();
-}
-
-// Función para verificar si un correo electrónico ya está registrado
-function verificarEmail($conexion, $email) {
-    $sql = "SELECT * FROM usuarios WHERE email = ?";
-    $stmt = $conexion->prepare($sql);
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
-    return $resultado->num_rows > 0;
+    return $stmt->get_result()->fetch_assoc();
 }
 ?>
