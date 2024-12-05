@@ -38,7 +38,6 @@ function autenticarUsuario($conexion, $nombre_usuario, $contraseña) {
     }
 }
 
-
 // Función para obtener el nombre del usuario logueado
 function obtenerUsuarioLogueado() {
     if (isset($_SESSION['usuario'])) {

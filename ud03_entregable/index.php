@@ -37,12 +37,13 @@ $libros = obtenerLibros($conexion, $id_categoria);
             </div>
         </form>
 
-        <div class="row">
+        <div class="row" style="margin-top: 30px;">
             <?php foreach ($libros as $libro): ?>
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <img src="img/<?= $libro['imagen'] ?>" class="card-img-top" alt="<?= $libro['titulo'] ?>">
-                        <div class="card-body">
+                <div class="col-md-4 mb-4"> <!-- Agregamos margin-bottom aquí -->
+                    <div class="card mb-4" style="height: 100%; display: flex; flex-direction: column;">
+                        <!-- Ajustamos el estilo de la imagen para que sea más alta -->
+                        <img src="img/<?= $libro['imagen'] ?>" class="card-img-top" alt="<?= $libro['titulo'] ?>" style="object-fit: cover; height: 300px;">
+                        <div class="card-body" style="flex-grow: 1;">
                             <h5 class="card-title"><?= $libro['titulo'] ?></h5>
                             <p class="card-text"><?= $libro['autor'] ?></p>
                             <p class="card-text">Categoría: <?= $libro['categoria'] ?></p>
@@ -51,7 +52,7 @@ $libros = obtenerLibros($conexion, $id_categoria);
                             <?php if (!isset($_SESSION['id_usuario'])): ?>
                                 <p class="card-text">
                                     <button class="btn btn-secondary" disabled>Reservado</button>
-                                    <a href="login.php" class="btn btn-primary">Iniciar sesión para reservar</a>
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Reservar</button>
                                 </p>
                             <?php elseif ($_SESSION['is_admin'] == 1): ?>
                                 <!-- Usuario Administrador -->
