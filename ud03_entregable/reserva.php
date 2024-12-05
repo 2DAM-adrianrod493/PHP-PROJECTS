@@ -65,7 +65,14 @@ if (isset($_GET['id_libro']) && isset($_GET['titulo']) && isset($_GET['autor']) 
                 <!-- La Fecha no es Obligatoria -->
                 <input type="date" class="form-control" name="fecha_reserva" id="fecha_reserva">
             </div>
-            <button type="submit" class="btn btn-primary">Confirmar Reserva</button>
+            <button type="submit"
+                    class="btn" 
+                    style="background-color: #352012;
+                    border-color: #FFFFFF; 
+                    color: #ffffff; 
+                    width: 100%; 
+                    border-radius: 15px; 
+                    border-width: 2px;">Confirmar Reserva</button>
         </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>

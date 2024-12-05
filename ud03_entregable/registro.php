@@ -23,10 +23,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $registro_exitoso = registrarUsuario($conexion, $nombre_usuario, $email, $hashed_password);
 
             if ($registro_exitoso) {
-                $_SESSION['id_usuario'] = $conexion->lastInsertId();
-                $_SESSION['nombre_usuario'] = $nombre_usuario;
-                $_SESSION['is_admin'] = 0;
-                header("Location: index.php");
+                $_SESSION['usuario'] = $nombre_usuario; // Guardamos el nombre del usuario en la sesión
+                $_SESSION['id_usuario'] = $conexion->insert_id; // Asignamos ID del usuario insertado
+                header('Location: index.php'); // Redirigimos a la página principal
                 exit();
             } else {
                 $error = "Error al Registrar el Usuario :(";
@@ -36,41 +35,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
+<!-- Formulario de Registro -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Usuario</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Registrar Usuario</title>
 </head>
 <body>
-    <div class="container mt-5">
-        <h2>Registro de Usuario</h2>
-        <?php if (isset($error)): ?>
-            <div class="alert alert-danger">
-                <?= $error ?>
-            </div>
-        <?php endif; ?>
-        <form action="registro.php" method="POST">
-            <div class="mb-3">
-                <label for="nombre_usuario" class="form-label">Nombre de Usuario</label>
-                <input type="text" id="nombre_usuario" name="nombre_usuario" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Correo Electrónico</label>
-                <input type="email" id="email" name="email" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Contraseña</label>
-                <input type="password" id="password" name="password" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="confirm_password" class="form-label">Confirmar Contraseña</label>
-                <input type="password" id="confirm_password" name="confirm_password" class="form-control" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Registrar</button>
-        </form>
-    </div>
+
+<h1>Registrar Usuario</h1>
+
+<?php
+if (isset($error)) {
+    echo "<p style='color: red;'>$error</p>";
+}
+?>
+
+<form action="registro.php" method="POST">
+    <label for="nombre_usuario">Nombre de Usuario:</label>
+    <input type="text" name="nombre_usuario" id="nombre_usuario" required><br><br>
+
+    <label for="email">Correo Electrónico:</label>
+    <input type="email" name="email" id="email" required><br><br>
+
+    <label for="password">Contraseña:</label>
+    <input type="password" name="password" id="password" required><br><br>
+
+    <label for="confirm_password">Confirmar Contraseña:</label>
+    <input type="password" name="confirm_password" id="confirm_password" required><br><br>
+
+    <button type="submit">Registrar</button>
+</form>
+
 </body>
 </html>

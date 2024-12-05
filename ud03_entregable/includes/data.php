@@ -106,4 +106,21 @@ function actualizarDisponibilidadLibro($conexion, $id_libro, $disponibilidad) {
     }
 }
 
+// Registrar Nuevo Usuario
+function registrarUsuario($conexion, $nombre_usuario, $email, $password) {
+    $query = "INSERT INTO usuarios (nombre_usuario, email, password) VALUES (?, ?, ?)";
+    $stmt = $conexion->prepare($query);
+    $stmt->bind_param("sss", $nombre_usuario, $email, $password);
+    
+    return $stmt->execute(); // Devuelve true si el registro fue exitoso
+}
+
+// Verificar si un correo ya está registrado
+function verificarUsuarioPorEmail($conexion, $email) {
+    $query = "SELECT * FROM usuarios WHERE email = ?";
+    $stmt = $conexion->prepare($query);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    return $stmt->get_result()->num_rows > 0;
+}
 ?>

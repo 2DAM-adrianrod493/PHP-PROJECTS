@@ -6,6 +6,18 @@ require './includes/data.php';
 if (isset($_GET['eliminar']) && isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1) {
     $id_libro = $_GET['eliminar'];
 
+    // Obtener la información del libro para obtener la imagen
+    $libro = obtenerLibroPorId($conexion, $id_libro);
+    if ($libro) {
+        $imagen = $libro['imagen']; // Obtenemos el nombre de la imagen
+
+        // Intentamos eliminar el archivo de la imagen
+        $ruta_imagen = 'img/' . $imagen;
+        if (file_exists($ruta_imagen)) {
+            unlink($ruta_imagen); // Eliminamos el archivo de la imagen
+        }
+    }
+
     // Eliminamos el Libro de la Base de Datos
     $query = "DELETE FROM libros WHERE id_libro = ?";
     $stmt = $conexion->prepare($query);
@@ -57,48 +69,91 @@ $libros = obtenerLibros($conexion, $id_categoria);
 
         <!-- Botón Registrar Nuevo Libro para Admin -->
         <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1): ?>
-            <button class="btn btn-success mb-4" data-bs-toggle="modal" data-bs-target="#registrarLibroModal">Registrar Nuevo Libro</button>
+            <button class="btn" 
+                    style="background-color: #352012; 
+                           border-color: #FFFFFF; 
+                           color: #ffffff; 
+                           width: 100%; 
+                           border-radius: 15px; 
+                           border-width: 2px;" data-bs-toggle="modal" data-bs-target="#registrarLibroModal">Registrar Nuevo Libro</button>
         <?php endif; ?>
 
         <!-- Mostramos los Libros -->
         <div class="row" style="margin-top: 30px;">
             <?php foreach ($libros as $libro): ?>
                 <div class="col-md-4 mb-4">
-                    <div class="card mb-4" style="height: 100%; display: flex; flex-direction: column;">
+                    <div class="card" style="height: 100%; display: flex; flex-direction: column;">
                         <img src="img/<?= htmlspecialchars($libro['imagen']) ?>" class="card-img-top" alt="<?= htmlspecialchars($libro['titulo']) ?>" style="object-fit: cover; height: 300px;">
-                        <div class="card-body" style="flex-grow: 1;">
+                        <div class="card-body d-flex flex-column" style="flex-grow: 1;">
                             <h5 class="card-title"><?= htmlspecialchars($libro['titulo']) ?></h5>
                             <p class="card-text"><?= htmlspecialchars($libro['autor']) ?></p>
                             <p class="card-text">Categoría: <?= htmlspecialchars($libro['categoria']) ?></p>
 
-                            <!-- Usuario NO Logueado -->
-                            <?php if (!isset($_SESSION['id_usuario'])): ?>
-                                <p class="card-text">
-                                    <button class="btn btn-secondary" disabled>Reservado</button>
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Reservar</button>
-                                </p>
-
-                            <?php elseif ($_SESSION['is_admin'] == 1): ?>
-                                <!-- Admin -->
-                                <p class="card-text">
+                            <div style="margin-top: auto;">
+                                <!-- Usuario NO Logueado -->
+                                <?php if (!isset($_SESSION['id_usuario'])): ?>
+                                    <button class="btn" 
+                                            style="background-color: #352012; 
+                                                border-color: #FFFFFF; 
+                                                color: #ffffff; 
+                                                width: 100%; 
+                                                border-radius: 15px; 
+                                                border-width: 2px;" 
+                                            disabled>Reservado</button>
+                                    <button class="btn" 
+                                            style="background-color: #352012; 
+                                                border-color: #FFFFFF; 
+                                                color: #ffffff; 
+                                                width: 100%; 
+                                                border-radius: 15px; 
+                                                border-width: 2px;" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#loginModal">Reservar</button>
+                                <!-- Admin -->   
+                                <?php elseif ($_SESSION['is_admin'] == 1): ?>
                                     <?php if ($libro['disponible'] == 0): ?>
-                                        <button class="btn btn-secondary" disabled>Reservado</button>
+                                        <button class="btn" 
+                                                style="background-color: #352012; 
+                                                    border-color: #FFFFFF; 
+                                                    color: #ffffff; 
+                                                    width: 100%; 
+                                                    border-radius: 15px; 
+                                                    border-width: 2px;" 
+                                                disabled>Reservado</button>
                                     <?php else: ?>
-                                        <a href="index.php?eliminar=<?= $libro['id_libro'] ?>" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que quieres eliminar este libro?');">Eliminar</a>
+                                        <a href="index.php?eliminar=<?= $libro['id_libro'] ?>" 
+                                           class="btn" 
+                                           style="background-color: #FFFFFF; 
+                                                  border-color: #352012; 
+                                                  color: #352012; 
+                                                  width: 100%; 
+                                                  border-radius: 15px; 
+                                                  border-width: 2px;" 
+                                           onclick="return confirm('¿Estás Seguro de que Quieres Eliminar este Libro?');">Eliminar</a>
                                     <?php endif; ?>
-                                </p>
-
-                            <?php else: ?>
                                 <!-- Usuario Logueado -->
-                                <p class="card-text">
+                                <?php else: ?>
                                     <?php if ($libro['disponible'] == 0): ?>
-                                        <button class="btn btn-secondary" disabled>Reservado</button>
+                                        <button class="btn" 
+                                                style="background-color: #352012; 
+                                                    border-color: #FFFFFF; 
+                                                    color: #ffffff; 
+                                                    width: 100%; 
+                                                    border-radius: 15px; 
+                                                    border-width: 2px;" 
+                                                disabled>Reservado</button>
                                     <?php else: ?>
-                                        <a href="reserva.php?id_libro=<?= $libro['id_libro'] ?>&titulo=<?= urlencode($libro['titulo']) ?>&autor=<?= urlencode($libro['autor']) ?>&categoria=<?= urlencode($libro['categoria']) ?>" class="btn btn-primary">Reservar</a>
+                                        <a href="reserva.php?id_libro=<?= $libro['id_libro'] ?>&titulo=<?= urlencode($libro['titulo']) ?>&autor=<?= urlencode($libro['autor']) ?>&categoria=<?= urlencode($libro['categoria']) ?>" 
+                                           class="btn" 
+                                           style="background-color: #352012; 
+                                                  border-color: #FFFFFF; 
+                                                  color: #ffffff; 
+                                                  width: 100%; 
+                                                  border-radius: 15px; 
+                                                  border-width: 2px;">Reservar</a>
                                     <?php endif; ?>
-                                </p>
-
-                            <?php endif; ?>
+                                <?php endif; ?>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -137,32 +192,13 @@ $libros = obtenerLibros($conexion, $id_categoria);
                             <label for="imagen" class="form-label">Imagen</label>
                             <input type="file" id="imagen" name="imagen" class="form-control" required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Registrar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Login -->
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="login.php" method="POST">
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Usuario</label>
-                            <input type="text" id="username" name="username" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Contraseña</label>
-                            <input type="password" id="password" name="password" class="form-control" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                        <button type="submit" class="btn" 
+                                style="background-color: #352012; 
+                                border-color: #FFFFFF; 
+                                color: #FFFFFF; 
+                                width: 150px; 
+                                border-radius: 15px; 
+                                border-width: 2px;">Registrar</button>
                     </form>
                 </div>
             </div>
