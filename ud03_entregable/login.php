@@ -1,15 +1,14 @@
 <?php
 session_start();
-require './includes/data.php';  // Asegúrate de que este archivo se incluya correctamente
+require './includes/data.php';
 
-$error = ''; // Variable para errores
+$error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_POST['nombre_usuario']) && !empty($_POST['password'])) {
         $nombre_usuario = $_POST['nombre_usuario'];
         $password = $_POST['password'];
 
-        // Autenticación con nombre de usuario
         $usuario = autenticarUsuario($conexion, $nombre_usuario, $password);
 
         if ($usuario) {
@@ -19,10 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: index.php");
             exit();
         } else {
-            $error = "Nombre de usuario o contraseña incorrectos.";
+            $error = "Nombre de Usuario o Contraseña Incorrectos.";
         }
     } else {
-        $error = "Por favor, ingrese nombre de usuario y contraseña.";
+        $error = "Por Favor, Introduce un Nombre de Usuario y Contraseña.";
     }
 }
 ?>

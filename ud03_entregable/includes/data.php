@@ -1,7 +1,7 @@
 <?php
 include('conexion.php');
 
-// Función para obtener libros con opción de filtro por categoría
+// Obtener Libros por Categoría
 function obtenerLibros($conexion, $id_categoria = null) {
     $query = "SELECT libros.id_libro, libros.titulo, libros.autor, libros.imagen, libros.disponible, categorias.nombre AS categoria
               FROM libros
@@ -15,14 +15,14 @@ function obtenerLibros($conexion, $id_categoria = null) {
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 
-// Función para obtener categorías
+// Obtener Categorías
 function obtenerCategorias($conexion) {
     $query = "SELECT * FROM categorias";
     $result = $conexion->query($query);
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 
-// Función para autenticar un usuario con nombre de usuario (no email)
+// Autenticar Usuario
 function autenticarUsuario($conexion, $nombre_usuario, $contraseña) {
     $sql = "SELECT * FROM usuarios WHERE nombre_usuario = ?";
     $stmt = $conexion->prepare($sql);
@@ -32,13 +32,13 @@ function autenticarUsuario($conexion, $nombre_usuario, $contraseña) {
     $usuario = $resultado->fetch_assoc();
 
     if ($usuario && password_verify($contraseña, $usuario['password'])) {
-        return $usuario; // Usuario autenticado
+        return $usuario;
     } else {
-        return false; // Usuario no encontrado o contraseña incorrecta
+        return false;
     }
 }
 
-// Función para obtener el nombre del usuario logueado
+// Obtener Nombre Usuario Logueado
 function obtenerUsuarioLogueado() {
     if (isset($_SESSION['usuario'])) {
         return $_SESSION['usuario'];
@@ -46,7 +46,7 @@ function obtenerUsuarioLogueado() {
     return null;
 }
 
-// Función para registrar una reserva
+// Registrar Reserva
 function registrarReserva($conexion, $id_usuario, $id_libro, $fecha_reserva) {
     $sql = "INSERT INTO reservas (id_usuario, id_libro, fecha_reserva) VALUES (?, ?, ?)";
     $stmt = $conexion->prepare($sql);
@@ -54,7 +54,7 @@ function registrarReserva($conexion, $id_usuario, $id_libro, $fecha_reserva) {
     return $stmt->execute();
 }
 
-// Función para obtener las reservas de un usuario
+// Obtener Reservas de un Usuario
 function obtenerReservasUsuario($conexion, $id_usuario) {
     $sql = "SELECT libros.titulo, reservas.fecha_reserva 
             FROM reservas 
@@ -69,7 +69,7 @@ function obtenerReservasUsuario($conexion, $id_usuario) {
     return $resultado->fetch_all(MYSQLI_ASSOC);
 }
 
-// Función para obtener todas las reservas (para administradores)
+// Obtener Reservas Admin
 function obtenerTodasLasReservas($conexion) {
     $sql = "SELECT usuarios.nombre_usuario, libros.titulo, reservas.fecha_reserva
             FROM reservas
@@ -80,7 +80,7 @@ function obtenerTodasLasReservas($conexion) {
     return $resultado->fetch_all(MYSQLI_ASSOC);
 }
 
-// Función para obtener un libro por su ID
+// Obtener Libro por ID
 function obtenerLibroPorId($conexion, $id_libro) {
     $query = "SELECT * FROM libros WHERE id_libro = ?";
     $stmt = $conexion->prepare($query);

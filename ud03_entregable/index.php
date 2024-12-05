@@ -2,10 +2,10 @@
 session_start();
 require './includes/data.php';
 
-// Obtener categorías para el filtro
+// Filtro Categorías
 $categorias = obtenerCategorias($conexion);
 
-// Obtener libros según el filtro de categoría
+// Obtener Libro por Categoría
 $id_categoria = isset($_GET['categoria']) ? $_GET['categoria'] : null;
 $libros = obtenerLibros($conexion, $id_categoria);
 ?>
@@ -22,12 +22,12 @@ $libros = obtenerLibros($conexion, $id_categoria);
     <?php include('includes/header.php'); ?>
 
     <div class="container mt-5">
-        <!-- Filtro por categorías -->
+        <!-- Filtro por Categoría -->
         <form action="index.php" method="get" class="mb-4">
             <div class="mb-3">
                 <label for="categoria" class="form-label">Filtrar por categoría</label>
                 <select name="categoria" id="categoria" class="form-select" onchange="this.form.submit()">
-                    <option value="">Selecciona una categoría</option>
+                    <option value="">Selecciona una Categoría</option>
                     <?php foreach ($categorias as $categoria): ?>
                         <option value="<?= $categoria['id_categoria'] ?>" <?= isset($id_categoria) && $id_categoria == $categoria['id_categoria'] ? 'selected' : '' ?>>
                             <?= $categoria['nombre'] ?>
@@ -37,25 +37,30 @@ $libros = obtenerLibros($conexion, $id_categoria);
             </div>
         </form>
 
+        <!-- Botón "Registrar Nuevo Libro" solo visible para Administradores -->
+        <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1): ?>
+            <a href="nuevoLibro.php" class="btn btn-success mb-4">Registrar Nuevo Libro</a>
+        <?php endif; ?>
+
         <div class="row" style="margin-top: 30px;">
             <?php foreach ($libros as $libro): ?>
-                <div class="col-md-4 mb-4"> <!-- Agregamos margin-bottom aquí -->
+                <div class="col-md-4 mb-4">
                     <div class="card mb-4" style="height: 100%; display: flex; flex-direction: column;">
-                        <!-- Ajustamos el estilo de la imagen para que sea más alta -->
                         <img src="img/<?= $libro['imagen'] ?>" class="card-img-top" alt="<?= $libro['titulo'] ?>" style="object-fit: cover; height: 300px;">
                         <div class="card-body" style="flex-grow: 1;">
                             <h5 class="card-title"><?= $libro['titulo'] ?></h5>
                             <p class="card-text"><?= $libro['autor'] ?></p>
                             <p class="card-text">Categoría: <?= $libro['categoria'] ?></p>
 
-                            <!-- Usuario NO logueado -->
+                            <!-- Usuario NO Logueado -->
                             <?php if (!isset($_SESSION['id_usuario'])): ?>
                                 <p class="card-text">
                                     <button class="btn btn-secondary" disabled>Reservado</button>
                                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Reservar</button>
                                 </p>
+
                             <?php elseif ($_SESSION['is_admin'] == 1): ?>
-                                <!-- Usuario Administrador -->
+                                <!-- Admin -->
                                 <p class="card-text">
                                     <?php if ($libro['disponible'] == 0): ?>
                                         <button class="btn btn-secondary" disabled>Reservado</button>
@@ -63,8 +68,9 @@ $libros = obtenerLibros($conexion, $id_categoria);
                                         <a href="eliminar.php?id_libro=<?= $libro['id_libro'] ?>" class="btn btn-danger">Eliminar</a>
                                     <?php endif; ?>
                                 </p>
+
                             <?php else: ?>
-                                <!-- Usuario logueado (no administrador) -->
+                                <!-- Usuario Logueado -->
                                 <p class="card-text">
                                     <?php if ($libro['disponible'] == 0): ?>
                                         <button class="btn btn-secondary" disabled>Reservado</button>
@@ -72,6 +78,7 @@ $libros = obtenerLibros($conexion, $id_categoria);
                                         <a href="reserva.php?id_libro=<?= $libro['id_libro'] ?>" class="btn btn-primary">Reservar</a>
                                     <?php endif; ?>
                                 </p>
+
                             <?php endif; ?>
                         </div>
                     </div>
@@ -79,11 +86,10 @@ $libros = obtenerLibros($conexion, $id_categoria);
             <?php endforeach; ?>
         </div>
 
-        <!-- Modal para mostrar el listado de reservas (solo si el usuario está logueado) -->
+        <!-- Modal Lista Reservas para Usuario Logueado -->
         <?php if (isset($_SESSION['id_usuario']) && $_SESSION['is_admin'] == 0): ?>
-            <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#reservasModal">Ver mis reservas</button>
+            <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#reservasModal">Ver Mis Reservas</button>
 
-            <!-- Modal -->
             <div class="modal fade" id="reservasModal" tabindex="-1" aria-labelledby="reservasModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -116,47 +122,6 @@ $libros = obtenerLibros($conexion, $id_categoria);
             </div>
         <?php endif; ?>
 
-        <!-- Modal para registrar un nuevo libro (solo para administradores) -->
-        <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1): ?>
-            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#registrarLibroModal">Registrar Libro</button>
-
-            <!-- Modal -->
-            <div class="modal fade" id="registrarLibroModal" tabindex="-1" aria-labelledby="registrarLibroModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="registrarLibroModalLabel">Registrar Nuevo Libro</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="nuevoLibro.php" method="POST" enctype="multipart/form-data">
-                                <div class="mb-3">
-                                    <label for="titulo" class="form-label">Título</label>
-                                    <input type="text" id="titulo" name="titulo" class="form-control" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="autor" class="form-label">Autor</label>
-                                    <input type="text" id="autor" name="autor" class="form-control" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="categoria" class="form-label">Categoría</label>
-                                    <select name="categoria" class="form-select" required>
-                                        <?php foreach ($categorias as $categoria): ?>
-                                            <option value="<?= $categoria['id_categoria'] ?>"><?= $categoria['nombre'] ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="imagen" class="form-label">Imagen</label>
-                                    <input type="file" id="imagen" name="imagen" class="form-control" required>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Registrar</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <?php endif; ?>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
