@@ -2,31 +2,36 @@
 session_start();
 include('includes/data.php');
 
+// Vemos si el Usuario está Logueado
 if (!isset($_SESSION['id_usuario'])) {
     header('Location: login.php');
     exit();
 }
 
-if (isset($_GET['id_libro'])) {
+// Vemos si se Recibe el ID del Libro
+if (isset($_GET['id_libro']) && isset($_GET['titulo']) && isset($_GET['autor']) && isset($_GET['categoria'])) {
     $id_libro = $_GET['id_libro'];
-    $libro = obtenerLibroPorId($conexion, $id_libro);
+    $titulo = $_GET['titulo'];
+    $autor = $_GET['autor'];
+    $categoria = $_GET['categoria'];
 
+    // Verificamos que se Haya Enviado el Formulario
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $fecha_reserva = isset($_POST['fecha_reserva']) ? $_POST['fecha_reserva'] : null;
         $usuario_id = $_SESSION['id_usuario'];
-
-        // Registrar la reserva
+    
+        // Registrar Reserva
         registrarReserva($conexion, $usuario_id, $id_libro, $fecha_reserva);
-
-        // Actualizar la disponibilidad del libro
-        actualizarDisponibilidadLibro($conexion, $id_libro, 0);  // Cambiar disponibilidad a 0 (reservado)
-
-        // Redirigir a la página principal
+    
+        // Actualizamos Disponibilidad del Libro
+        actualizarDisponibilidadLibro($conexion, $id_libro, 0);
+    
         header('Location: index.php');
         exit();
     }
+    
 } else {
-    // Si no se pasa un ID de libro, redirigir a la página principal
+    // Si no se Recibe el ID de Libro, Redirigimos al Index
     header('Location: index.php');
     exit();
 }
@@ -44,25 +49,25 @@ if (isset($_GET['id_libro'])) {
     <?php include('includes/header.php'); ?>
 
     <div class="container mt-5">
-        <h2>Reservar: <?= $libro['titulo'] ?></h2>
+        <h2>Reservar: <?= $titulo ?></h2>
+        <!-- Formulario de Reserva -->
         <form method="POST">
             <div class="mb-3">
                 <label for="autor" class="form-label">Autor</label>
-                <input type="text" class="form-control" value="<?= $libro['autor'] ?>" disabled>
+                <input type="text" class="form-control" value="<?= $autor ?>" disabled>
             </div>
             <div class="mb-3">
                 <label for="categoria" class="form-label">Categoría</label>
-                <input type="text" class="form-control" value="<?= $libro['categoria'] ?>" disabled>
+                <input type="text" class="form-control" value="<?= $categoria ?>" disabled>
             </div>
             <div class="mb-3">
                 <label for="fecha_reserva" class="form-label">Fecha de reserva</label>
+                <!-- La Fecha no es Obligatoria -->
                 <input type="date" class="form-control" name="fecha_reserva" id="fecha_reserva">
-                <!-- Este campo no es obligatorio, por lo tanto el usuario puede dejarlo en blanco -->
             </div>
             <button type="submit" class="btn btn-primary">Confirmar Reserva</button>
         </form>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 </body>

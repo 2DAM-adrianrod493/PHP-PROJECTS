@@ -1,35 +1,35 @@
 <?php
 session_start();
-require './includes/data.php';  // Asegúrate de tener este archivo con la conexión a la base de datos
+require './includes/data.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Obtener datos del formulario
+    // Obtenemos los Datos del Formulario
     $nombre_usuario = $_POST['nombre_usuario'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
 
-    // Validación básica
+    // Validamos Credenciales
     if ($password !== $confirm_password) {
-        $error = "Las contraseñas no coinciden.";
+        $error = "No Coinciden las Contraseñas :(";
     } else {
-        // Verificar si el email ya está registrado
+        // Verificación Email Registrado o No
         $usuario_existente = verificarUsuarioPorEmail($conexion, $email);
         if ($usuario_existente) {
-            $error = "El correo electrónico ya está registrado.";
+            $error = "Error, Correo ya Registrado :(";
         } else {
-            // Registrar usuario
+            // Registramos Usuario
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
             $registro_exitoso = registrarUsuario($conexion, $nombre_usuario, $email, $hashed_password);
 
             if ($registro_exitoso) {
                 $_SESSION['id_usuario'] = $conexion->lastInsertId();
                 $_SESSION['nombre_usuario'] = $nombre_usuario;
-                $_SESSION['is_admin'] = 0;  // Asumimos que es un usuario normal
+                $_SESSION['is_admin'] = 0;
                 header("Location: index.php");
                 exit();
             } else {
-                $error = "Hubo un problema al registrar el usuario.";
+                $error = "Error al Registrar el Usuario :(";
             }
         }
     }

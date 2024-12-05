@@ -13,7 +13,7 @@ if (session_status() == PHP_SESSION_NONE) {
             <div class="col-6 d-flex align-items-center">
                 <!-- Logo -->
                 <img src="./img/logo-biblio.png" alt="Logo Biblioteca" style="width: 50px; height: auto; margin-right: 15px;">
-                <h1 class="mb-0">Biblioteca Virtual</h1>
+                <h1 class="mb-0">Bienvenido a la Biblioteca Virtual</h1>
             </div>
 
             <!-- Sesión -->
@@ -55,6 +55,5 @@ if (session_status() == PHP_SESSION_NONE) {
     </div>
 </div>
 <?php endif; ?>
-
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>

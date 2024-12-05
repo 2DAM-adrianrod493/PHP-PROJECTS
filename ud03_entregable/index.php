@@ -2,6 +2,24 @@
 session_start();
 require './includes/data.php';
 
+// Verificamos si se Quiere Eliminar un Libro
+if (isset($_GET['eliminar']) && isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1) {
+    $id_libro = $_GET['eliminar'];
+
+    // Eliminamos el Libro de la Base de Datos
+    $query = "DELETE FROM libros WHERE id_libro = ?";
+    $stmt = $conexion->prepare($query);
+    $stmt->bind_param("i", $id_libro);
+    
+    if ($stmt->execute()) {
+        // Después de Eliminar, Redirigimos al Index
+        header("Location: index.php");
+        exit;
+    } else {
+        echo "Error al eliminar el libro.";
+    }
+}
+
 // Filtro Categorías
 $categorias = obtenerCategorias($conexion);
 
@@ -29,28 +47,29 @@ $libros = obtenerLibros($conexion, $id_categoria);
                 <select name="categoria" id="categoria" class="form-select" onchange="this.form.submit()">
                     <option value="">Selecciona una Categoría</option>
                     <?php foreach ($categorias as $categoria): ?>
-                        <option value="<?= $categoria['id_categoria'] ?>" <?= isset($id_categoria) && $id_categoria == $categoria['id_categoria'] ? 'selected' : '' ?>>
-                            <?= $categoria['nombre'] ?>
+                        <option value="<?= htmlspecialchars($categoria['id_categoria']) ?>" <?= isset($id_categoria) && $id_categoria == $categoria['id_categoria'] ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($categoria['nombre']) ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
             </div>
         </form>
 
-        <!-- Botón "Registrar Nuevo Libro" solo visible para Administradores -->
+        <!-- Botón Registrar Nuevo Libro para Admin -->
         <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1): ?>
-            <a href="nuevoLibro.php" class="btn btn-success mb-4">Registrar Nuevo Libro</a>
+            <button class="btn btn-success mb-4" data-bs-toggle="modal" data-bs-target="#registrarLibroModal">Registrar Nuevo Libro</button>
         <?php endif; ?>
 
+        <!-- Mostramos los Libros -->
         <div class="row" style="margin-top: 30px;">
             <?php foreach ($libros as $libro): ?>
                 <div class="col-md-4 mb-4">
                     <div class="card mb-4" style="height: 100%; display: flex; flex-direction: column;">
-                        <img src="img/<?= $libro['imagen'] ?>" class="card-img-top" alt="<?= $libro['titulo'] ?>" style="object-fit: cover; height: 300px;">
+                        <img src="img/<?= htmlspecialchars($libro['imagen']) ?>" class="card-img-top" alt="<?= htmlspecialchars($libro['titulo']) ?>" style="object-fit: cover; height: 300px;">
                         <div class="card-body" style="flex-grow: 1;">
-                            <h5 class="card-title"><?= $libro['titulo'] ?></h5>
-                            <p class="card-text"><?= $libro['autor'] ?></p>
-                            <p class="card-text">Categoría: <?= $libro['categoria'] ?></p>
+                            <h5 class="card-title"><?= htmlspecialchars($libro['titulo']) ?></h5>
+                            <p class="card-text"><?= htmlspecialchars($libro['autor']) ?></p>
+                            <p class="card-text">Categoría: <?= htmlspecialchars($libro['categoria']) ?></p>
 
                             <!-- Usuario NO Logueado -->
                             <?php if (!isset($_SESSION['id_usuario'])): ?>
@@ -65,7 +84,7 @@ $libros = obtenerLibros($conexion, $id_categoria);
                                     <?php if ($libro['disponible'] == 0): ?>
                                         <button class="btn btn-secondary" disabled>Reservado</button>
                                     <?php else: ?>
-                                        <a href="eliminar.php?id_libro=<?= $libro['id_libro'] ?>" class="btn btn-danger">Eliminar</a>
+                                        <a href="index.php?eliminar=<?= $libro['id_libro'] ?>" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que quieres eliminar este libro?');">Eliminar</a>
                                     <?php endif; ?>
                                 </p>
 
@@ -75,7 +94,7 @@ $libros = obtenerLibros($conexion, $id_categoria);
                                     <?php if ($libro['disponible'] == 0): ?>
                                         <button class="btn btn-secondary" disabled>Reservado</button>
                                     <?php else: ?>
-                                        <a href="reserva.php?id_libro=<?= $libro['id_libro'] ?>" class="btn btn-primary">Reservar</a>
+                                        <a href="reserva.php?id_libro=<?= $libro['id_libro'] ?>&titulo=<?= urlencode($libro['titulo']) ?>&autor=<?= urlencode($libro['autor']) ?>&categoria=<?= urlencode($libro['categoria']) ?>" class="btn btn-primary">Reservar</a>
                                     <?php endif; ?>
                                 </p>
 
@@ -85,45 +104,70 @@ $libros = obtenerLibros($conexion, $id_categoria);
                 </div>
             <?php endforeach; ?>
         </div>
-
-        <!-- Modal Lista Reservas para Usuario Logueado -->
-        <?php if (isset($_SESSION['id_usuario']) && $_SESSION['is_admin'] == 0): ?>
-            <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#reservasModal">Ver Mis Reservas</button>
-
-            <div class="modal fade" id="reservasModal" tabindex="-1" aria-labelledby="reservasModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="reservasModalLabel">Mis Reservas</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Fecha</th>
-                                        <th>Libro</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $reservas = obtenerReservasUsuario($conexion, $_SESSION['id_usuario']);
-                                    foreach ($reservas as $reserva): ?>
-                                        <tr>
-                                            <td><?= $reserva['fecha_reserva'] ?></td>
-                                            <td><?= $reserva['titulo'] ?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <?php endif; ?>
-
     </div>
 
+    <!-- Modal Registrar Libro -->
+    <div class="modal fade" id="registrarLibroModal" tabindex="-1" aria-labelledby="registrarLibroModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registrarLibroModalLabel">Registrar Nuevo Libro</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Formulario -->
+                    <form action="nuevoLibro.php" method="POST" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="titulo" class="form-label">Título</label>
+                            <input type="text" id="titulo" name="titulo" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="autor" class="form-label">Autor</label>
+                            <input type="text" id="autor" name="autor" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="categoria" class="form-label">Categoría</label>
+                            <select name="categoria" class="form-select" required>
+                                <?php foreach ($categorias as $categoria): ?>
+                                    <option value="<?= htmlspecialchars($categoria['id_categoria']) ?>"><?= htmlspecialchars($categoria['nombre']) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="imagen" class="form-label">Imagen</label>
+                            <input type="file" id="imagen" name="imagen" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Registrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Login -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="login.php" method="POST">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Usuario</label>
+                            <input type="text" id="username" name="username" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="password" id="password" name="password" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 </body>

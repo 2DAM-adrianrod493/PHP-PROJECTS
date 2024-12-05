@@ -34,23 +34,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Iniciar Sesión</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <div class="container mt-5">
-        <h2>Iniciar Sesión</h2>
-        <?php if ($error): ?>
-            <div class="alert alert-danger"><?= $error ?></div>
-        <?php endif; ?>
-        <form action="login.php" method="POST">
-            <div class="mb-3">
-                <label for="nombre_usuario" class="form-label">Nombre de Usuario</label>
-                <input type="text" id="nombre_usuario" name="nombre_usuario" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Contraseña</label>
-                <input type="password" id="password" name="password" class="form-control" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-        </form>
-    </div>
 </body>
 </html>

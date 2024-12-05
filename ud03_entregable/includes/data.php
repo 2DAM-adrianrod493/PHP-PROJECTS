@@ -46,12 +46,16 @@ function obtenerUsuarioLogueado() {
     return null;
 }
 
-// Registrar Reserva
-function registrarReserva($conexion, $id_usuario, $id_libro, $fecha_reserva) {
-    $sql = "INSERT INTO reservas (id_usuario, id_libro, fecha_reserva) VALUES (?, ?, ?)";
-    $stmt = $conexion->prepare($sql);
-    $stmt->bind_param("iis", $id_usuario, $id_libro, $fecha_reserva);
-    return $stmt->execute();
+function registrarReserva($conexion, $usuario_id, $id_libro, $fecha_reserva) {
+    $query = "INSERT INTO reservas (id_usuario, id_libro, fecha_reserva) VALUES (?, ?, ?)";
+    $stmt = $conexion->prepare($query);
+    $stmt->bind_param("iis", $usuario_id, $id_libro, $fecha_reserva);
+    
+    if ($stmt->execute()) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 // Obtener Reservas de un Usuario
@@ -88,4 +92,18 @@ function obtenerLibroPorId($conexion, $id_libro) {
     $stmt->execute();
     return $stmt->get_result()->fetch_assoc();
 }
+
+// Actualizamos la Disponibilidad el Libro
+function actualizarDisponibilidadLibro($conexion, $id_libro, $disponibilidad) {
+    $query = "UPDATE libros SET disponible = ? WHERE id_libro = ?";
+    $stmt = $conexion->prepare($query);
+    $stmt->bind_param("ii", $disponibilidad, $id_libro);
+    
+    if ($stmt->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 ?>
