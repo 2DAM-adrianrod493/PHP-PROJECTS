@@ -9,10 +9,9 @@ if (!isset($_SESSION['id_usuario'])) {
 }
 
 // Vemos si se Recibe el ID del Campeonato
-if (isset($_GET['id_campeonato']) && isset($_GET['nombre']) && isset($_GET['fecha']) && isset($_GET['provincia'])) {
+if (isset($_GET['id_campeonato']) && isset($_GET['nombre']) && isset($_GET['provincia'])) {
     $id_campeonato = $_GET['id_campeonato'];
     $nombre = $_GET['nombre'];
-    $fecha = $_GET['fecha'];
     $provincia = $_GET['provincia'];
 
     // Verificamos que se Haya Enviado el Formulario
@@ -20,10 +19,10 @@ if (isset($_GET['id_campeonato']) && isset($_GET['nombre']) && isset($_GET['fech
         $fecha = isset($_POST['fecha']) ? $_POST['fecha'] : null;
         $usuario_id = $_SESSION['id_usuario'];
     
-        // Registrar Reserva
+        // Registrar Inscripción
         inscribirse($conexion, $usuario_id, $id_campeonato, $fecha);
     
-        // Actualizamos Disponibilidad del Libro
+        // Actualizamos Disponibilidad del Campeonato
         actualizarDisponibilidadCampeonato($conexion, $id_campeonato, 0);
     
         header('Location: index.php');
@@ -49,20 +48,20 @@ if (isset($_GET['id_campeonato']) && isset($_GET['nombre']) && isset($_GET['fech
     <?php include('includes/header.php'); ?>
 
     <div class="container mt-5">
-        <h2>Inscribirse: <?= $nombre ?></h2>
+        <h2>Inscribirse: <?= htmlspecialchars($nombre) ?></h2>
         <!-- Formulario de Inscripción -->
         <form method="POST">
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" value="<?= $nombre ?>" disabled>
+                <input type="text" class="form-control" value="<?= htmlspecialchars($nombre) ?>" disabled>
             </div>
             <div class="mb-3">
                 <label for="provincia" class="form-label">Provincia</label>
-                <input type="text" class="form-control" value="<?= $provincia ?>" disabled>
+                <input type="text" class="form-control" value="<?= htmlspecialchars($provincia) ?>" disabled>
             </div>
             <div class="mb-3">
                 <label for="fecha" class="form-label">Fecha de Inscripción</label>
-                <input type="date" class="form-control" name="fecha" id="fecha">
+                <input type="date" class="form-control" name="fecha" id="fecha" required>
             </div>
             <button type="submit"
                     class="btn" 

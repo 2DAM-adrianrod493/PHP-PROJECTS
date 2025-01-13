@@ -108,21 +108,21 @@ $campeonatos = obtenerCampeonatos($conexion, $id_campeonato);
                         <img src="img/<?= htmlspecialchars($campeonato['imagen']) ?>" class="card-img-top" alt="<?= htmlspecialchars($campeonato['nombre']) ?>" style="object-fit: cover; height: 300px;">
                         <div class="card-body d-flex flex-column" style="flex-grow: 1;">
                             <h5 class="card-title"
-                            style="border-color: #FFFFFF; 
-                                color: #FFFFFF; 
-                                width: 160px; 
-                                border-radius: 20px; 
-                                border-width: 2px;"><?= htmlspecialchars($campeonato['nombre']) ?></h5>
+                                style="border-color: #FFFFFF; 
+                                    color: #FFFFFF; 
+                                    width: 160px; 
+                                    border-radius: 20px; 
+                                    border-width: 2px;"><?= htmlspecialchars($campeonato['nombre']) ?></h5>
                             <p class="card-text" style="border-color: #FFFFFF; 
-                                color: #FFFFFF; 
-                                width: 160px; 
-                                border-radius: 20px; 
-                                border-width: 2px;"><?= htmlspecialchars($campeonato['fecha']) ?></p>
+                                                    color: #FFFFFF; 
+                                                    width: 160px; 
+                                                    border-radius: 20px; 
+                                                    border-width: 2px;"><?= htmlspecialchars($campeonato['fecha']) ?></p>
                             <p class="card-text" style="border-color: #FFFFFF; 
-                                color: #FFFFFF; 
-                                width: 160px; 
-                                border-radius: 20px; 
-                                border-width: 2px;">Provincia: <?= htmlspecialchars($campeonato['provincia']) ?></p>
+                                                    color: #FFFFFF; 
+                                                    width: 160px; 
+                                                    border-radius: 20px; 
+                                                    border-width: 2px;">Provincia: <?= htmlspecialchars($campeonato['provincia']) ?></p>
 
                             <div style="margin-top: auto;">
                                 <!-- Usuario NO Logueado -->
@@ -155,17 +155,16 @@ $campeonatos = obtenerCampeonatos($conexion, $id_campeonato);
                                                     border-radius: 15px; 
                                                     border-width: 2px;" 
                                                 disabled>Registro Cerrado</button>
-                                    <?php else: ?>
-                                        <a href="index.php?eliminar=<?= $campeonato['id_campeonato'] ?>" 
-                                           class="btn" 
-                                           style="background-color: #FFFFFF; 
-                                                  border-color: #333333; 
-                                                  color: #333333; 
-                                                  width: 100%; 
-                                                  border-radius: 15px; 
-                                                  border-width: 2px;" 
-                                           onclick="return confirm('¿Estás Seguro de que Quieres Eliminar este Campeonato?');">Eliminar</a>
                                     <?php endif; ?>
+                                    <!-- Botón para Editar Campeonato -->
+                                    <a href="editarCampeonato.php?id_campeonato=<?= $campeonato['id_campeonato'] ?>" 
+                                    class="btn" 
+                                    style="background-color: #222222; 
+                                            border-color: #FFFFFF; 
+                                            color: #ffffff; 
+                                            width: 100%; 
+                                            border-radius: 15px; 
+                                            border-width: 2px;">Editar</a>
                                 <!-- Usuario Logueado -->
                                 <?php else: ?>
                                     <?php if ($campeonato['cerrado'] == 0): ?>
@@ -179,13 +178,13 @@ $campeonatos = obtenerCampeonatos($conexion, $id_campeonato);
                                                 disabled>Registro Cerrado</button>
                                     <?php else: ?>
                                         <a href="inscripcion.php?id_campeonato=<?= $campeonato['id_campeonato'] ?>&nombre=<?= urlencode($campeonato['nombre']) ?>&fecha=<?= urlencode($campeonato['fecha']) ?>&provincia=<?= urlencode($campeonato['provincia']) ?>" 
-                                           class="btn" 
-                                           style="background-color: #333333; 
-                                                  border-color: #FFFFFF; 
-                                                  color: #ffffff; 
-                                                  width: 100%; 
-                                                  border-radius: 15px; 
-                                                  border-width: 2px;">Inscribirse</a>
+                                        class="btn" 
+                                        style="background-color: #333333; 
+                                                border-color: #FFFFFF; 
+                                                color: #ffffff; 
+                                                width: 100%; 
+                                                border-radius: 15px; 
+                                                border-width: 2px;">Inscribirse</a>
                                     <?php endif; ?>
                                 <?php endif; ?>
                             </div>
@@ -201,45 +200,68 @@ $campeonatos = obtenerCampeonatos($conexion, $id_campeonato);
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="registrarCampeonatosModalLabel">Registrar Nuevo Campeonato</h5>
+                    <h5 class="modal-title" id="registrarCampeonatoModalLabel">Registrar Nuevo Campeonato</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- Formulario -->
-                    <form action="nuevoCampeonato.php" method="POST" enctype="multipart/form-data">
+                    <!-- Formulario de Registro -->
+                    <form action="registrarCampeonato.php" method="post" enctype="multipart/form-data">
                         <div class="mb-3">
-                            <label for="nombre" class="form-label">Nombre</label>
-                            <input type="text" id="nombre" name="nombre" class="form-control" required>
+                            <label for="nombre" class="form-label">Nombre del Campeonato</label>
+                            <input type="text" name="nombre" class="form-control" id="nombre" required>
                         </div>
                         <div class="mb-3">
-                            <label for="fecha" class="form-label">Fecha</label>
-                            <input type="date" id="fecha" name="fecha" class="form-control" required>
+                            <label for="fecha" class="form-label">Fecha del Campeonato</label>
+                            <input type="date" name="fecha" class="form-control" id="fecha" required>
                         </div>
                         <div class="mb-3">
                             <label for="provincia" class="form-label">Provincia</label>
-                            <select name="provincia" class="form-select" required>
-                                <?php foreach ($campeonatos as $provincia): ?>
-                                    <option value="<?= htmlspecialchars($provincia['id_campeonato']) ?>"><?= htmlspecialchars($provincia['provincia']) ?></option>
-                                <?php endforeach; ?>
-                            </select>
+                            <input type="text" name="provincia" class="form-control" id="provincia" required>
                         </div>
                         <div class="mb-3">
-                            <label for="imagen" class="form-label">Imagen</label>
-                            <input type="file" id="imagen" name="imagen" class="form-control" required>
+                            <label for="imagen" class="form-label">Imagen del Campeonato</label>
+                            <input type="file" name="imagen" class="form-control" id="imagen" required>
                         </div>
-                        <button type="submit" class="btn" 
-                                style="background-color: #333333; 
-                                border-color: #FFFFFF; 
-                                color: #FFFFFF; 
-                                width: 150px; 
-                                border-radius: 15px; 
-                                border-width: 2px;">Añadir Campeonato</button>
+                        <div class="mb-3">
+                            <label for="cerrado" class="form-label">Registro Cerrado</label>
+                            <select name="cerrado" class="form-select" id="cerrado" required>
+                                <option value="0">No</option>
+                                <option value="1">Sí</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Registrar Campeonato</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal Login -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="login.php" method="post">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Correo Electrónico</label>
+                            <input type="email" name="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="password" name="password" class="form-control" id="password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

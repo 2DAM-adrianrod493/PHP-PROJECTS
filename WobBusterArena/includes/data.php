@@ -60,10 +60,10 @@
     }
 
     // Inscribirse a Campeonato
-    function inscribirse($conexion, $usuario_id, $id_campeonato, $fecha) {
-        $query = "INSERT INTO inscripciones (id_usuario, id_campeonato, fecha) VALUES (?, ?, ?)";
+    function inscribirse($conexion, $usuario_id, $id_campeonato) {
+        $query = "INSERT INTO inscripciones (id_usuario, id_campeonato) VALUES (?, ?)";
         $stmt = $conexion->prepare($query);
-        $stmt->bind_param("iis", $usuario_id, $id_campeonato, $fecha);
+        $stmt->bind_param("ii", $usuario_id, $id_campeonato);
         
         if ($stmt->execute()) {
             return true;
@@ -71,6 +71,7 @@
             return false;
         }
     }
+
 
     // Obtener Inscripciones de un Usuario
     function obtenerInscripcionesUsuario($conexion, $id_usuario) {
