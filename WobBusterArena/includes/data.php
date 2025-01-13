@@ -4,10 +4,9 @@
     // Obtener Campeonatos por Provincia
     function obtenerCampeonatosPorProvincia($conexion, $id_campeonato = null) {
         $query = "SELECT campeonatos.id_campeonato, campeonatos.nombre, campeonatos.fecha, campeonatos.imagen, campeonatos.cerrado, campeonatos.nombre AS campeonato
-                FROM campeonatos
-                JOIN campeonatos ON campeonatos.id_campeonato = campeonatos.id_campeonato";
+                FROM campeonatos";
         
-        if ($id_categoria) {
+        if ($id_campeonato) {
             $query .= " WHERE campeonatos.id_campeonato = $id_campeonato";
         }
 
@@ -24,13 +23,13 @@
 
     // Obtener Provincias
     function obtenerProvincia($conexion) {
-        $query = "SELECT provincia FROM campeonatos";
+        $query = "SELECT DISTINCT provincia FROM campeonatos";
         $result = $conexion->query($query);
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-     // Obtener Registro
-     function obtenerRegistro($conexion) {
+    // Obtener Registro
+    function obtenerRegistro($conexion) {
         $query = "SELECT cerrado FROM campeonatos";
         $result = $conexion->query($query);
         return $result->fetch_all(MYSQLI_ASSOC);
@@ -97,7 +96,7 @@
         return $stmt->get_result()->fetch_assoc();
     }
 
-    // Actualizamos la Disponibilidad el Campeonato
+    // Actualizamos la Disponibilidad del Campeonato
     function actualizarDisponibilidadCampeonato($conexion, $id_campeonato, $cerrado) {
         $query = "UPDATE campeonatos SET cerrado = ? WHERE id_campeonato = ?";
         $stmt = $conexion->prepare($query);

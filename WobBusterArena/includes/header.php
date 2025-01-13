@@ -2,6 +2,37 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+
+// Establecer idioma predeterminado si no se ha definido
+if (!isset($_SESSION['lang'])) {
+    $_SESSION['lang'] = 'es'; // idioma por defecto español
+}
+
+// Cambiar idioma cuando se hace clic en el botón
+if (isset($_GET['lang'])) {
+    $_SESSION['lang'] = $_GET['lang'];
+}
+
+// Cargar los textos según el idioma seleccionado
+$lang = $_SESSION['lang'];
+$texts = [
+    'es' => [
+        'login' => 'Iniciar sesión',
+        'logout' => 'Cerrar sesión',
+        'username' => 'Nombre de Usuario',
+        'password' => 'Contraseña',
+        'login_modal_title' => 'Iniciar Sesión',
+        'login_button' => 'Iniciar sesión',
+    ],
+    'en' => [
+        'login' => 'Log in',
+        'logout' => 'Log out',
+        'username' => 'Username',
+        'password' => 'Password',
+        'login_modal_title' => 'Log In',
+        'login_button' => 'Log In',
+    ]
+];
 ?>
 
 <header style="background: linear-gradient(to right, #000000, #000000); padding: 15px;">
@@ -22,7 +53,7 @@ if (session_status() == PHP_SESSION_NONE) {
                                 color: #FFFFFF; 
                                 width: 150px; 
                                 border-radius: 15px; 
-                                border-width: 2px;">Cerrar Sesión</a>
+                                border-width: 2px;"><?= $texts[$lang]['logout'] ?></a>
                 <?php else: ?>
                     <!-- Login Modal -->
                     <button class="btn" 
@@ -33,8 +64,24 @@ if (session_status() == PHP_SESSION_NONE) {
                                 border-radius: 15px; 
                                 border-width: 2px;" 
                             data-bs-toggle="modal" 
-                            data-bs-target="#loginModal">Iniciar sesión</button>
+                            data-bs-target="#loginModal"><?= $texts[$lang]['login'] ?></button>
                 <?php endif; ?>
+
+                <!-- Botón de cambio de idioma -->
+                <a href="?lang=es" class="btn" 
+                   style="background-color: #444444; 
+                          border-color: #FFFFFF; 
+                          color: #FFFFFF; 
+                          width: 100px; 
+                          border-radius: 15px; 
+                          border-width: 2px;">ES</a>
+                <a href="?lang=en" class="btn" 
+                   style="background-color: #444444; 
+                          border-color: #FFFFFF; 
+                          color: #FFFFFF; 
+                          width: 100px; 
+                          border-radius: 15px; 
+                          border-width: 2px;">EN</a>
             </div>
         </div>
     </div>
@@ -46,17 +93,17 @@ if (session_status() == PHP_SESSION_NONE) {
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
+                <h5 class="modal-title" id="loginModalLabel"><?= $texts[$lang]['login_modal_title'] ?></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form action="login.php" method="POST">
                     <div class="mb-3">
-                        <label for="nombre_usuario" class="form-label">Nombre de Usuario</label>
+                        <label for="nombre_usuario" class="form-label"><?= $texts[$lang]['username'] ?></label>
                         <input type="text" id="nombre_usuario" name="nombre_usuario" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label for="password" class="form-label">Contraseña</label>
+                        <label for="password" class="form-label"><?= $texts[$lang]['password'] ?></label>
                         <input type="password" id="password" name="password" class="form-control" required>
                     </div>
                     <button class="btn" 
@@ -67,7 +114,7 @@ if (session_status() == PHP_SESSION_NONE) {
                                 border-radius: 15px; 
                                 border-width: 2px;" 
                             data-bs-toggle="modal" 
-                            data-bs-target="#loginModal">Iniciar sesión</button>
+                            data-bs-target="#loginModal"><?= $texts[$lang]['login_button'] ?></button>
                 </form>
             </div>
         </div>

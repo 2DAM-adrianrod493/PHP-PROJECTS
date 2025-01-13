@@ -22,8 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (move_uploaded_file($imagenTmp, $imagenDestino)) {
         // Metemos el Campeonato en la Base de Datos
-        $stmt = $conexion->prepare("INSERT INTO campeonatos (nombre, fecha, id_campeonato, imagen) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssis", $nombre, $fecha, $provincia, $imagenNombre);
+        $stmt = $conexion->prepare("INSERT INTO campeonatos (nombre, fecha, provincia, imagen) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $nombre, $fecha, $provincia, $imagenNombre);
 
         if ($stmt->execute()) {
             header('Location: index.php');
@@ -36,13 +36,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Registrar Campeonato</title>
-    </head>
-    </body>
-</html>
