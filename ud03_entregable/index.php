@@ -196,7 +196,7 @@ $libros = obtenerLibros($conexion, $id_categoria);
                                 style="background-color: #352012; 
                                 border-color: #FFFFFF; 
                                 color: #FFFFFF; 
-                                width: 150px; 
+                                width: 150px;
                                 border-radius: 15px; 
                                 border-width: 2px;">Registrar</button>
                     </form>
